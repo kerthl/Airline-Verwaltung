@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="430.0" prefWidth="700.0" style="-fx-background-color: #fff;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.MainController">
+   <children>
+      <AnchorPane fx:id="pane" layoutX="211.0" prefHeight="437.0" prefWidth="489.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="211.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+      <AnchorPane layoutX="-4.0" prefHeight="437.0" prefWidth="214.0" style="-fx-background-color: #f0f7ff;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <AnchorPane prefHeight="437.0" prefWidth="54.0" style="-fx-background-color: #fff;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <effect>
+                  <DropShadow />
+               </effect></AnchorPane>
+            <JFXButton fx:id="btnHome" alignment="BASELINE_LEFT" graphicTextGap="0.0" layoutY="84.0" onAction="#btnHomeClicked" prefHeight="43.0" prefWidth="214.0" text="Home">
+               <padding>
+                  <Insets left="80.0" />
+               </padding></JFXButton>
+            <JFXButton fx:id="btnFlugzeuge" alignment="BASELINE_LEFT" graphicTextGap="0.0" layoutY="127.0" onAction="#btnFlugzeugeClicked" prefHeight="43.0" prefWidth="214.0" text="Flugzeuge">
+               <padding>
+                  <Insets left="80.0" />
+               </padding></JFXButton>
+            <JFXButton fx:id="btnPiloten" alignment="BASELINE_LEFT" graphicTextGap="0.0" layoutY="170.0" onAction="#btnPilotenClicked" prefHeight="43.0" prefWidth="214.0" text="Piloten">
+               <padding>
+                  <Insets left="80.0" />
+               </padding></JFXButton>
+            <JFXButton fx:id="btnAngebote" alignment="BASELINE_LEFT" graphicTextGap="0.0" layoutY="213.0" onAction="#btnAngeboteClicked" prefHeight="43.0" prefWidth="214.0" text="Angebote">
+               <padding>
+                  <Insets left="80.0" />
+               </padding></JFXButton>
+            <JFXButton alignment="BASELINE_LEFT" graphicTextGap="0.0" layoutY="256.0" prefHeight="43.0" prefWidth="214.0" text="Flüge">
+               <padding>
+                  <Insets left="80.0" />
+               </padding>
+            </JFXButton>
+            <FontAwesomeIcon glyphName="BULLSEYE" layoutX="21.0" layoutY="110.0" size="1.3em" />
+            <FontAwesomeIcon glyphName="PLANE" layoutX="21.0" layoutY="153.0" size="1.3em" />
+            <FontAwesomeIcon glyphName="MALE" layoutX="22.0" layoutY="196.0" size="1.3em" />
+            <FontAwesomeIcon glyphName="MONEY" layoutX="19.0" layoutY="239.0" size="1.3em" />
+            <FontAwesomeIcon glyphName="CALENDAR" layoutX="19.0" layoutY="282.0" size="1.3em" />
+         </children>
+         <effect>
+            <DropShadow />
+         </effect>
+      </AnchorPane>
+   </children>
+</AnchorPane>
