@@ -15,40 +15,42 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 
-public class FlugzeugeController implements Initializable{
+public class FlugzeugeController implements Initializable {
 
-    @FXML
-    private TableView<Flugzeug> tvFlugzeuge;
+	@FXML
+	private TableView<Flugzeug> tvFlugzeuge;
 
-    @FXML
-    private Button btnNeuesFlugzeug;
-    
-    @FXML
-    private JFXComboBox<Airline> cbAirline;
+	@FXML
+	private Button btnNeuesFlugzeug;
 
-    @FXML
-    private JFXTextField txtBezeichnung;
+	@FXML
+	private ComboBox<Airline> cbAirline;
 
-    @FXML
-    private JFXTextField txtSitze;
+	@FXML
+	private TextField txtBezeichnung;
 
-    @FXML
-    private JFXTextField txtBaujahr;
+	@FXML
+	private TextField txtSitze;
 
-    @FXML
-    private JFXTextField txtKennzeichen;
+	@FXML
+	private TextField txtBaujahr;
 
-    @FXML
-    private JFXTextField txtReihen;
+	@FXML
+	private TextField txtKennzeichen;
 
-    @FXML
-    private JFXTextField txtSitzeReihe;
+	@FXML
+	private TextField txtReihen;
 
-    TableColumn<Flugzeug, Integer> id = null;
+	@FXML
+	private TextField txtSitzeReihe;
+
+	TableColumn<Flugzeug, Integer> id = null;
 	TableColumn<Flugzeug, Airline> airline = null;
 	TableColumn<Flugzeug, String> bezeichnung = null;
 	TableColumn<Flugzeug, Integer> maxSitze = null;
@@ -56,41 +58,79 @@ public class FlugzeugeController implements Initializable{
 	TableColumn<Flugzeug, String> kennzeichen = null;
 	TableColumn<Flugzeug, Integer> anzahlR = null;
 	TableColumn<Flugzeug, Integer> anzahlSitzeProR = null;
-    
-    DataManager dm;
-    
-    @Override
+
+	DataManager dm;
+
+	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
-		dm = DataManager.getInstance();
-		GenerateColumns();
-    	/*try {
+
+		try {
+			dm = DataManager.getInstance();
+			GenerateColumns();
+			fillAirlines();
 			fillFlugzeuge();
 		} catch (Exception e) {
 			e.printStackTrace();
-		}*/
+		}
 	}
-    
-    @FXML
-    void btnNeuesFlugzeugClicked(ActionEvent event) {
 
-    }
+	@FXML
+	void btnNeuesFlugzeugClicked(ActionEvent event) throws Exception {
+		if (!txtBaujahr.getText().trim().isEmpty() || !txtBezeichnung.getText().trim().isEmpty()
+				|| !txtKennzeichen.getText().trim().isEmpty() || !txtReihen.getText().trim().isEmpty()
+				|| !txtSitze.getText().trim().isEmpty() || !txtSitzeReihe.getText().trim().isEmpty()) {
+			Flugzeug neu = generateNewFlugzeug();
+			dm.addFlugzeug(neu);
+			fillFlugzeuge();
+			setAllEmpty();
+		} else {
+
+		}
+	}
+
+	private void setAllEmpty() {
+		txtBaujahr.setText("");
+		txtBezeichnung.setText("");
+		txtKennzeichen.setText("");
+		txtReihen.setText("");
+		txtSitze.setText("");
+		txtSitzeReihe.setText("");
+	}
+
+	private Flugzeug generateNewFlugzeug() {
+		Airline a = cbAirline.getSelectionModel().getSelectedItem();
+		String bez = txtBezeichnung.getText();
+		int ms = Integer.parseInt(txtSitze.getText());
+		int bauj = Integer.parseInt(txtBaujahr.getText());
+		String kennz = txtKennzeichen.getText();
+		int ar = Integer.parseInt(txtReihen.getText());
+		int asr = Integer.parseInt(txtSitzeReihe.getText());
+
+		return new Flugzeug(-99, a, bez, ms, bauj, kennz, ar, asr);
+	}
+
+	public void fillAirlines() throws Exception {
+		List<Airline> alleAirlines = dm.getAirlines();
+		cbAirline.setItems(FXCollections.observableArrayList(alleAirlines));
+		cbAirline.getSelectionModel().selectFirst();
+	}
 
 	private void fillFlugzeuge() throws Exception {
 		List<Flugzeug> alleFZ = dm.getFlugzeuge();
 		tvFlugzeuge.setItems(FXCollections.observableArrayList(alleFZ));
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	public void GenerateColumns() {
 		id = new TableColumn<Flugzeug, Integer>("ID");
 		airline = new TableColumn<Flugzeug, Airline>("Airline");
-		bezeichnung = new TableColumn<Flugzeug, String>("Bezeihnung");
+		bezeichnung = new TableColumn<Flugzeug, String>("Bezeichnung");
 		maxSitze = new TableColumn<Flugzeug, Integer>("Sitze");
 		baujahr = new TableColumn<Flugzeug, Integer>("Baujahr");
 		kennzeichen = new TableColumn<Flugzeug, String>("Kennzeichen");
 		anzahlR = new TableColumn<Flugzeug, Integer>("Reihen");
-		anzahlSitzeProR = new TableColumn<Flugzeug, Integer>("Sitze/Reihe");
-		
+		anzahlSitzeProR = new TableColumn<Flugzeug, Integer>("S/R");
+
 		id.setCellValueFactory(new PropertyValueFactory<Flugzeug, Integer>("id"));
 		airline.setCellValueFactory(new PropertyValueFactory<Flugzeug, Airline>("airline"));
 		bezeichnung.setCellValueFactory(new PropertyValueFactory<Flugzeug, String>("bezeichnung"));
@@ -99,8 +139,9 @@ public class FlugzeugeController implements Initializable{
 		kennzeichen.setCellValueFactory(new PropertyValueFactory<Flugzeug, String>("kennzeichen"));
 		anzahlR.setCellValueFactory(new PropertyValueFactory<Flugzeug, Integer>("anzahlReihen"));
 		anzahlSitzeProR.setCellValueFactory(new PropertyValueFactory<Flugzeug, Integer>("anzahlSitzeProReihe"));
-		
-		this.tvFlugzeuge.getColumns().addAll(id, airline, bezeichnung, maxSitze, baujahr, kennzeichen, anzahlR, anzahlSitzeProR);
+
+		this.tvFlugzeuge.getColumns().addAll(id, airline, bezeichnung, maxSitze, baujahr, kennzeichen, anzahlR,
+				anzahlSitzeProR);
 	}
 
 }

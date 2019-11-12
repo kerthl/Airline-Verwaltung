@@ -10,6 +10,7 @@ import java.util.ArrayList;
 
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
+import javax.ws.rs.client.Entity;
 import javax.ws.rs.client.Invocation;
 import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.GenericType;
@@ -29,6 +30,8 @@ public class DataManager {
 	WebTarget webTargetFlugzeugList;
 	WebTarget webTargetFlugList;
 	WebTarget webTargetFlugDetail;
+	WebTarget webTargetAirlineList;
+	WebTarget webTargetFlugzeugDetail;
 
 	public static DataManager getInstance() {
 		if (db == null) {
@@ -45,6 +48,8 @@ public class DataManager {
 			webTargetFlugzeugList = webTarget.path(pm.readProperty("webTargetFlugzeugList"));
 			webTargetFlugList = webTarget.path(pm.readProperty("webTargetFlugList"));
 			webTargetFlugDetail = webTarget.path(pm.readProperty("webTargetFlugDetail"));
+			webTargetAirlineList = webTarget.path(pm.readProperty("webTargetAirlineList"));
+			webTargetFlugzeugDetail = webTarget.path(pm.readProperty("webTargetFlugzeugDetail"));
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -123,7 +128,43 @@ public class DataManager {
 
 		return fluegzeugeAsList;
 	}
+	
+	public void addFlugzeug(Flugzeug f) {
+		Invocation.Builder invocationBuilder = null;
+		Response response = null;
 
+		try {
+			invocationBuilder = this.webTargetFlugzeugDetail.request(MediaType.APPLICATION_JSON);
+			response = invocationBuilder.post(Entity.entity(f, MediaType.APPLICATION_JSON));
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+	}
+
+	public ArrayList<Airline> getAirlines() throws Exception {
+
+		String retAirlinesAsJson = null;
+		ArrayList<Airline> airlinesAsList = null;
+
+		Invocation.Builder invocationBuilder = null;
+		Response response = null;
+
+		try {
+			invocationBuilder = webTargetAirlineList.request(MediaType.APPLICATION_JSON);
+			response = invocationBuilder.accept(MediaType.APPLICATION_JSON).get();
+			airlinesAsList = response.readEntity(new GenericType<ArrayList<Airline>>() {
+			});
+
+		} catch (JsonSyntaxException ex) {
+			throw new Exception(retAirlinesAsJson);
+		} finally {
+
+		}
+
+		return airlinesAsList;
+	}
+
+	
 	public ArrayList<Pilot> getPiloten() throws Exception {
 
 		String retPilotAsJson = null;
@@ -147,42 +188,24 @@ public class DataManager {
 		return pilotenAsList;
 	}
 
-	/*
-	 * public boolean addAktion(AktionsTyp a) {
-	 * 
-	 * boolean result = false; try { Invocation.Builder invocationBuilder =
-	 * this.webTargetAktionDetail.request(MediaType.APPLICATION_JSON); Response
-	 * response = invocationBuilder.post(Entity.entity(a,
-	 * MediaType.APPLICATION_JSON)); if (response.getStatus() == 201) { result =
-	 * true; } } catch (Exception ex) { ex.printStackTrace(); } return result; }
-	 * 
-	 * public void deleteAktion(AktionsTyp selectedItem) { webTargetAktionDetail =
-	 * webTargetAktionDetail.path("/" + selectedItem.getId()); Invocation.Builder
-	 * invocationBuilder =
-	 * webTargetAktionDetail.request(MediaType.APPLICATION_JSON); Response response
-	 * = invocationBuilder.delete(); this.resetWebTargetAktion(); }
-	 * 
-	 * public void updateAktion(AktionsTyp itemToUpdate) { Invocation.Builder
-	 * invocationBuilder =
-	 * webTargetAktionDetail.request(MediaType.APPLICATION_JSON); Response response
-	 * = invocationBuilder.put(Entity.entity(itemToUpdate,
-	 * MediaType.APPLICATION_JSON)); }
-	 * 
-	 * private void resetWebTargetArtikel() { webTargetArtikelDetail = null;
-	 * webTargetArtikelList = null; webTargetArtikelDetail =
-	 * webTarget.path(pm.readProperty("webTargetArtikelDetail"));
-	 * webTargetArtikelList =
-	 * webTarget.path(pm.readProperty("webTargetArtikelList")); }
-	 * 
-	 * private void resetWebTargetGegenstandel() { webTargetGegenstandeDetail =
-	 * null; webTargetGegenstandeList = null; webTargetGegenstandeDetail =
-	 * webTarget.path(pm.readProperty("webTargetGegenstandeDetail"));
-	 * webTargetGegenstandeList =
-	 * webTarget.path(pm.readProperty("webTargetGegenstandeList")); }
-	 * 
-	 * private void resetWebTargetAktion() { webTargetAktionDetail = null;
-	 * webTargetAktionList = null; webTargetAktionDetail =
-	 * webTarget.path(pm.readProperty("webTargetAktionDetail")); webTargetAktionList
-	 * = webTarget.path(pm.readProperty("webTargetAktionList")); }
-	 */
+	public boolean createFlug(Flug newFlug) {
+		boolean result = false;
+		System.out.println("Bauen");
+		try {
+			Invocation.Builder invocationBuilder = this.webTargetFlugDetail.request(MediaType.APPLICATION_JSON);
+			Response response = invocationBuilder.post(Entity.entity(newFlug, MediaType.APPLICATION_JSON));
+			if (response.getStatus() == 201) {
+				result = true;
+			}
+
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+		return result;
+	}
+
+	public void updateFlug(Flug f) {
+		Invocation.Builder invocationBuilder = this.webTargetFlugDetail.request(MediaType.APPLICATION_JSON);
+		Response response = invocationBuilder.put(Entity.entity(f, MediaType.APPLICATION_JSON));
+	}
 }

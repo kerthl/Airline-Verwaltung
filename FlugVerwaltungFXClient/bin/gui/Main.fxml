@@ -6,9 +6,9 @@
 <?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="430.0" prefWidth="700.0" style="-fx-background-color: #fff;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.MainController">
+<AnchorPane prefHeight="420.0" prefWidth="1100.0" style="-fx-background-color: #fff;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.MainController">
    <children>
-      <AnchorPane fx:id="pane" layoutX="211.0" prefHeight="437.0" prefWidth="489.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="211.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+      <AnchorPane fx:id="pane" prefHeight="410.0" prefWidth="800.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="211.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
       <AnchorPane layoutX="-4.0" prefHeight="437.0" prefWidth="214.0" style="-fx-background-color: #f0f7ff;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
             <AnchorPane prefHeight="437.0" prefWidth="54.0" style="-fx-background-color: #fff;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -31,7 +31,7 @@
                <padding>
                   <Insets left="80.0" />
                </padding></JFXButton>
-            <JFXButton alignment="BASELINE_LEFT" graphicTextGap="0.0" layoutY="256.0" prefHeight="43.0" prefWidth="214.0" text="Flüge">
+            <JFXButton fx:id="btnFluege" alignment="BASELINE_LEFT" graphicTextGap="0.0" layoutY="256.0" onAction="#btnFluegeClicked" prefHeight="43.0" prefWidth="214.0" text="Flüge">
                <padding>
                   <Insets left="80.0" />
                </padding>

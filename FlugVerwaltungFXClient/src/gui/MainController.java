@@ -29,6 +29,9 @@ public class MainController implements Initializable {
 	@FXML
 	private JFXButton btnAngebote;
 
+	@FXML
+	private JFXButton btnFluege;
+	
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		try {
@@ -45,8 +48,10 @@ public class MainController implements Initializable {
 	}
 
 	@FXML
-	void btnAngeboteClicked(ActionEvent event) {
-
+	void btnAngeboteClicked(ActionEvent event) throws IOException {
+		pane.getChildren().clear();
+		AnchorPane pane = FXMLLoader.load(getClass().getResource("/gui/Angebote.fxml"));
+		this.pane.getChildren().setAll(pane);
 	}
 
 	@FXML
@@ -64,8 +69,16 @@ public class MainController implements Initializable {
 	}
 
 	@FXML
-	void btnPilotenClicked(ActionEvent event) {
-
+	void btnPilotenClicked(ActionEvent event) throws IOException {
+		pane.getChildren().clear();
+		AnchorPane pane = FXMLLoader.load(getClass().getResource("/gui/Piloten.fxml"));
+		this.pane.getChildren().setAll(pane);
 	}
 
+	@FXML
+	void btnFluegeClicked(ActionEvent event) throws IOException {
+		pane.getChildren().clear();
+		AnchorPane pane = FXMLLoader.load(getClass().getResource("/gui/CreateFlug.fxml"));
+		this.pane.getChildren().setAll(pane);
+	}
 }
