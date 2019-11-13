@@ -124,7 +124,7 @@ public class AngebotController implements Initializable {
 				error = true;
 			} else {
 				arrivalTime.setStyle("-fx-border-color: gray;");
-			}
+			} 
 
 			if (error) {
 				errorMsg = errorMsg.substring(0, errorMsg.length() - 2);
