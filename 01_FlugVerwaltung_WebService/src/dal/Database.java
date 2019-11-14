@@ -14,7 +14,7 @@ import bll.*;
 public class Database {
 
 	private static String cN = "oracle.jdbc.driver.OracleDriver";
-	private static String url = "jdbc:oracle:thin:@212.152.179.117:1521:ora11g";
+	private static String url = "jdbc:oracle:thin:@10.0.6.111:1521:ora11g";
 	//212.152.179.117
 	private static String benutzer = "d4a29";
 	private static String passwort = "d4a";
@@ -86,9 +86,8 @@ public class Database {
 				Pilot p1 = this.getPilotById(rs.getInt(3));
 				Pilot p2 = this.getPilotById(rs.getInt(4));
 				Flugzeug f = this.getFlugzeugByID(rs.getInt(5));
-				java.sql.Date currSqlDate = rs.getDate(2);
-				Date aa = new Date(20, 10, 10);
-				listFluege.add(new Flug(a, aa, p1, p2, f));
+				String s  = rs.getString(2);
+				listFluege.add(new Flug(a, s, p1, p2, f));
 			}
 
 		} catch (Exception e) {
@@ -113,10 +112,10 @@ public class Database {
 		try {
 			pstmt = con.prepareStatement(updateString);
 			pstmt.setInt(1, f.getCaptain().getId());
-			pstmt.setInt(2, f.getFirstOFFICER().getId());
+			pstmt.setInt(2, f.getFirstOfficer().getId());
 			pstmt.setInt(3, f.getFlugzeug().getId());
-			pstmt.setString(4, f.getFlugangbeot().getFlugNummer());
-			pstmt.setDate(5, new java.sql.Date(f.getDatum().getTime()));
+			pstmt.setString(4, f.getAngebot().getFlugNummer());
+			pstmt.setString(5, f.getDatum());
 			result = pstmt.execute();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -129,14 +128,14 @@ public class Database {
 		boolean result = false;
 		try {
 			pstmt = con.prepareStatement("INSERT INTO flug VALUES (?,?,?,?,?)");
-			pstmt.setString(1, f.getFlugangbeot().getFlugNummer());
-			pstmt.setDate(2, new java.sql.Date(f.getDatum().getTime()));
+			pstmt.setString(1, f.getAngebot().getFlugNummer());
+			pstmt.setString(2, f.getDatum());
 			pstmt.setInt(3, f.getCaptain().getId());
-			pstmt.setInt(4, f.getFirstOFFICER().getId());
+			pstmt.setInt(4, f.getFirstOfficer().getId());
 			pstmt.setInt(5, f.getFlugzeug().getId());
 			result = pstmt.execute();
 		} catch (Exception e) {
-			System.out.println(e);
+			e.printStackTrace();
 		} finally {
 			try {
 				pstmt.close();
@@ -274,8 +273,8 @@ public class Database {
 				Pilot p1 = this.getPilotById(rs.getInt(3));
 				Pilot p2 = this.getPilotById(rs.getInt(4));
 				Flugzeug f = this.getFlugzeugByID(rs.getInt(5));
-				java.util.Date utilDate = new java.util.Date(rs.getDate(2).getTime());
-				result = new Flug(a, utilDate, p1, p2, f);
+				String s = rs.getString(2);
+				result = new Flug(a, s, p1, p2, f);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

@@ -78,7 +78,7 @@ public class MainController implements Initializable {
 	@FXML
 	void btnFluegeClicked(ActionEvent event) throws IOException {
 		pane.getChildren().clear();
-		AnchorPane pane = FXMLLoader.load(getClass().getResource("/gui/CreateFlug.fxml"));
+		AnchorPane pane = FXMLLoader.load(getClass().getResource("/gui/TatsFlugView.fxml"));
 		this.pane.getChildren().setAll(pane);
 	}
 }

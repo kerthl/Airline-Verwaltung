@@ -50,6 +50,7 @@ public class DataManager {
 			webTargetFlugDetail = webTarget.path(pm.readProperty("webTargetFlugDetail"));
 			webTargetAirlineList = webTarget.path(pm.readProperty("webTargetAirlineList"));
 			webTargetFlugzeugDetail = webTarget.path(pm.readProperty("webTargetFlugzeugDetail"));
+			webTargetAngeboteList = webTarget.path(pm.readProperty("webTargetAngeboteList"));
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
