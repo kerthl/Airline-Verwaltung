@@ -1,11 +1,7 @@
 package gui;
 
 import java.net.URL;
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.ResourceBundle;
 
 import bll.*;
@@ -68,7 +64,7 @@ public class CreateFlugController implements Initializable {
 		Flugzeug fz = this.cbFlugzeug.getSelectionModel().getSelectedItem();
 		
 		
-		String europeanDatePattern = "yyyy-MM-dd";
+		String europeanDatePattern = "dd.MM.yyyy";
 		DateTimeFormatter europeanDateFormatter = DateTimeFormatter.ofPattern(europeanDatePattern);
 		
 		String datum = this.dpDate.getValue().format(europeanDateFormatter);

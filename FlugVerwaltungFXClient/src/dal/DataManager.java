@@ -3,7 +3,7 @@ package dal;
 import com.google.gson.JsonSyntaxException;
 import bll.*;
 import util.PropertyManager;
- 
+
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -28,13 +28,13 @@ public class DataManager {
 	WebTarget webTarget;
 	WebTarget webTargetAngeboteList;
 	WebTarget webTargetAngeboteDetail;
+	WebTarget webTargetFlughafenListe;
 	WebTarget webTargetPilotenList;
 	WebTarget webTargetFlugzeugList;
 	WebTarget webTargetFlugList;
 	WebTarget webTargetFlugDetail;
 	WebTarget webTargetAirlineList;
 	WebTarget webTargetFlugzeugDetail;
-	WebTarget webTargetFlughafenListe;
 
 	public static DataManager getInstance() {
 		if (db == null) {
@@ -47,14 +47,15 @@ public class DataManager {
 		try {
 			pm = PropertyManager.getInstance();
 			webTarget = client.target(pm.readProperty("resource"));
-			webTargetPilotenList = webTarget.path(pm.readProperty("webTargetPilotenList"));
 			webTargetAngeboteDetail = webTarget.path(pm.readProperty("webTargetAngeboteDetail"));
+			webTargetPilotenList = webTarget.path(pm.readProperty("webTargetPilotenList"));
 			webTargetFlugzeugList = webTarget.path(pm.readProperty("webTargetFlugzeugList"));
 			webTargetFlugList = webTarget.path(pm.readProperty("webTargetFlugList"));
 			webTargetFlugDetail = webTarget.path(pm.readProperty("webTargetFlugDetail"));
 			webTargetAirlineList = webTarget.path(pm.readProperty("webTargetAirlineList"));
-			webTargetFlugzeugDetail = webTarget.path(pm.readProperty("webTargetFlugzeugDetail"));
 			webTargetFlughafenListe = webTarget.path(pm.readProperty("webTargetFlughafenListe"));
+			webTargetAngeboteList = webTarget.path(pm.readProperty("webTargetAngeboteList"));
+			webTargetFlugzeugDetail = webTarget.path(pm.readProperty("webTargetFlugzeugDetail"));
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -110,7 +111,7 @@ public class DataManager {
 
 		return angeboteAsList;
 	}
-	
+
 	public boolean addAngebot(Angebot angebot) {
 		Invocation.Builder invocationBuilder = this.webTargetAngeboteDetail.request(MediaType.APPLICATION_JSON);
 		Response response = invocationBuilder.post(Entity.entity(angebot, MediaType.APPLICATION_JSON));
@@ -122,6 +123,30 @@ public class DataManager {
 		}
 	}
 
+	
+	
+
+	
+	
+	public ArrayList<Flughafen> getAirports() throws Exception {
+
+		List<Flughafen> airports = null;
+
+		Invocation.Builder invocationBuilder = null;
+		Response response = null;
+
+		try {
+			invocationBuilder = webTargetFlughafenListe.request(MediaType.APPLICATION_JSON);
+			response = invocationBuilder.accept(MediaType.APPLICATION_JSON).get();
+			airports = response.readEntity(new GenericType<List<Flughafen>>() {
+			});
+
+		} catch (Exception ex) {
+			throw new Exception();
+		}
+
+		return (ArrayList<Flughafen>) airports;
+	}
 	public ArrayList<Flugzeug> getFlugzeuge() throws Exception {
 
 		String retFlugzeugeAsJson = null;
@@ -179,26 +204,6 @@ public class DataManager {
 
 		return airlinesAsList;
 	}
-	
-	public ArrayList<Flughafen> getAirports() throws Exception {
-
-		List<Flughafen> airports = null;
-
-		Invocation.Builder invocationBuilder = null;
-		Response response = null;
-
-		try {
-			invocationBuilder = webTargetFlughafenListe.request(MediaType.APPLICATION_JSON);
-			response = invocationBuilder.accept(MediaType.APPLICATION_JSON).get();
-			airports = response.readEntity(new GenericType<List<Flughafen>>() {
-			});
-
-		} catch (Exception ex) {
-			throw new Exception();
-		}
-
-		return (ArrayList<Flughafen>) airports;
-	}
 
 	
 	public ArrayList<Pilot> getPiloten() throws Exception {
@@ -244,4 +249,30 @@ public class DataManager {
 		Invocation.Builder invocationBuilder = this.webTargetFlugDetail.request(MediaType.APPLICATION_JSON);
 		Response response = invocationBuilder.put(Entity.entity(f, MediaType.APPLICATION_JSON));
 	}
-}
+	
+	public void updateFlugzeug(Flugzeug f) {
+		Invocation.Builder invocationBuilder = this.webTargetFlugzeugDetail.request(MediaType.APPLICATION_JSON);
+		Response response = invocationBuilder.put(Entity.entity(f, MediaType.APPLICATION_JSON));
+	}
+	
+	public void deleteFlugzeug(Flugzeug f) {
+		Invocation.Builder invocationBuilder = null;
+		Response response = null;
+
+		WebTarget webtarget = this.webTargetFlugzeugDetail.path(String.valueOf(f.getId()));
+		invocationBuilder = webtarget.request(MediaType.APPLICATION_JSON);
+		response = invocationBuilder.accept(MediaType.APPLICATION_JSON).delete();
+	}
+	public void updateAngebot(Angebot angebot) {
+		Invocation.Builder invocationBuilder = this.webTargetAngeboteDetail.request(MediaType.APPLICATION_JSON);
+		invocationBuilder.put(Entity.entity(angebot, MediaType.APPLICATION_JSON));
+	}
+
+	public void deleteAngebot(Object item) {
+		Invocation.Builder invocationBuilder = null;
+		Response response = null;
+
+		WebTarget webtarget = this.webTargetAngebotDetail.path(String.valueOf(item.getFlugNummer()));
+		invocationBuilder = webtarget.request(MediaType.APPLICATION_JSON);
+		response = invocationBuilder.accept(MediaType.APPLICATION_JSON).delete();
+	}}

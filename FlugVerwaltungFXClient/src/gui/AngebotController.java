@@ -1,5 +1,6 @@
 package gui;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
@@ -7,141 +8,152 @@ import java.util.ResourceBundle;
 import bll.Airline;
 import bll.Angebot;
 import bll.Flughafen;
+import bll.Pilot;
 import dal.DataManager;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
-import javafx.scene.paint.Color;
+import javafx.scene.Scene;
+import javafx.scene.control.ContextMenu;
+import javafx.scene.control.MenuItem;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 public class AngebotController implements Initializable {
 
 	@FXML
-	Button done;
-	@FXML
-	TextField bezeichnung;
-	@FXML
-	ComboBox<String> cbxDeparture;
-	@FXML
-	ComboBox<String> cbxArrival;
-	@FXML
-	TextField departureTime;
-	@FXML
-	TextField arrivalTime;
-	@FXML
-	Label label;
+	TableView<Angebot> tv;
+	ObservableList<Angebot> angebote = FXCollections.observableArrayList();
 
+	// String flugNummer, Airline airline, Flughafen flughafenAb, Flughafen flughafenAn, String abflugsZeit,
+	// String ankunftsZeit
+	@FXML
+	TableColumn<Angebot, Integer> flugNummer = null;
+	@FXML
+	TableColumn<Angebot, Flughafen> flughafenAb = null;
+	@FXML
+	TableColumn<Angebot, Flughafen> flughafenAn = null;
+	@FXML
+	TableColumn<Angebot, String> abflugsZeit = null;
+	@FXML
+	TableColumn<Angebot, String> ankunftsZeit = null;
+	
 	DataManager db = DataManager.getInstance();
-	ArrayList<String> air = new ArrayList<String>();
-	ArrayList<Flughafen> airports = new ArrayList<Flughafen>();
-	Airline airline = null;
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
-		try {
-			// this.airline = db.getAirline(1);
-			
-			airports = db.getAirports();
-			airports.forEach(port -> air.add(port.getBezeichnung()));
-			cbxDeparture.getItems().setAll(air);
-			cbxArrival.getItems().setAll(air);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-		departureTime.focusedProperty().addListener((arg2, oldValue, newValue) -> {
-			if (!newValue) {
-				if (!departureTime.getText().matches("^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$")) {
-					departureTime.setText("");
-				}
-			}
+		// TODO Auto-generated method stub
+		this.initTableView();
+		this.fillAngebote();
+		
+		MenuItem delete = new MenuItem("Delete");
+		delete.setOnAction(event -> {
+		    Object item = tv.getSelectionModel().getSelectedItem();
+		    db.deleteAngebot(item);
+		    System.out.println("Selected item: " + item + " deleted");
+		    this.fillAngebote();
 		});
 
-		arrivalTime.focusedProperty().addListener((arg22, oldValue2, newValue2) -> {
-			if (!newValue2) {
-				if (!arrivalTime.getText().matches("^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$")) {
-					arrivalTime.setText("");
+		ContextMenu menu = new ContextMenu();
+		menu.getItems().add(delete);
+		tv.setContextMenu(menu);
+	}
+
+	private void initTableView() {
+		flugNummer = new TableColumn<Angebot, Integer>("Flug Nummer");
+		flughafenAb = new TableColumn<Angebot, Flughafen>("Flughafen Ab.");
+		flughafenAn = new TableColumn<Angebot, Flughafen>("Flughafen An.");
+		abflugsZeit = new TableColumn<Angebot, String>("Abflug Zeit");
+		ankunftsZeit = new TableColumn<Angebot, String>("Ankunft Zeit");
+
+		flugNummer.setCellValueFactory(new PropertyValueFactory<Angebot, Integer>("flugNummer"));
+		flughafenAb.setCellValueFactory(new PropertyValueFactory<Angebot, Flughafen>("flughafenAb"));
+		flughafenAn.setCellValueFactory(new PropertyValueFactory<Angebot, Flughafen>("flughafenAn"));
+		abflugsZeit.setCellValueFactory(new PropertyValueFactory<Angebot, String>("abflugsZeit"));
+		ankunftsZeit.setCellValueFactory(new PropertyValueFactory<Angebot, String>("ankunftsZeit"));
+
+		this.tv.getColumns().addAll(flugNummer, flughafenAb, flughafenAn, abflugsZeit, ankunftsZeit);
+
+		this.tv.setOnMousePressed(new EventHandler<MouseEvent>() {
+			@Override
+			public void handle(MouseEvent event) {
+				if (event.isPrimaryButtonDown() && event.getClickCount() == 2
+						&& tv.getSelectionModel().getSelectedItem() != null) {
+					openUpdateDialog();
 				}
 			}
 		});
 	}
 
-	public void doneClicked() {
+
+	private void fillAngebote() {
 		try {
-			String errorMsg = "Bitte wählen Sie ";
-			Boolean error = false;
+			angebote.clear();
+			//angebote.addAll(db.getAngebote());
+			ArrayList<Angebot> temp = new ArrayList<Angebot>();
+			temp.add(new Angebot("123", null, new Flughafen(1, "Wien", "1234sdaf", "Wien"), new Flughafen(1, "Klagenfurt", "1234sdaf", "Klagenfurt"), "12:34", "15:15"));
+			temp.add(new Angebot("157", null, new Flughafen(3, "Frankfurt", "1234sdaf", "Frankfurt"), new Flughafen(1, "Graz", "1234sdaf", "Graz"), "12:34", "15:15"));
+			angebote.addAll(temp);
 
-			String bez = bezeichnung.getText();
-
-			int tempDep = cbxDeparture.getSelectionModel().getSelectedIndex();
-			Flughafen depAirport = null;
-			if(tempDep >= 0) {
-				depAirport = airports.get(tempDep);
-			}
-			int tempArr = cbxArrival.getSelectionModel().getSelectedIndex();
-			Flughafen arrAirport = null;
-			if(tempArr >= 0) {
-				arrAirport = airports.get(tempArr);
-			}
-
-			String depTime = departureTime.getText();
-			String arrTime = arrivalTime.getText();
-			if (bez.equals("")) {
-				bezeichnung.setStyle("-fx-border-color: red;");
-				errorMsg += "Bezeichnung, ";
-				error = true;
-			} else {
-				bezeichnung.setStyle("-fx-border-color: gray;");
-			}
-			if (depAirport == null) {
-				cbxDeparture.setStyle("-fx-border-color: red;");
-				errorMsg += "Abflugflughafen, ";
-				error = true;
-			} else {
-				cbxDeparture.setStyle("-fx-border-color: gray;");
-			}
-			if (arrAirport == null) {
-				cbxArrival.setStyle("-fx-border-color: red;");
-				errorMsg += "Ankunftsflughafen, ";
-				error = true;
-			} else {
-				cbxArrival.setStyle("-fx-border-color: gray;");
-			}
-			if (depTime.equals("")) {
-				departureTime.setStyle("-fx-border-color: red;");
-				errorMsg += "Abflugszeit, ";
-				error = true;
-			} else {
-				departureTime.setStyle("-fx-border-color: gray;");
-			}
-			if (arrTime.equals("")) {
-				arrivalTime.setStyle("-fx-border-color: red;");
-				errorMsg += "Ankunftszeit, ";
-				error = true;
-			} else {
-				arrivalTime.setStyle("-fx-border-color: gray;");
-			} 
-
-			if (error) {
-				errorMsg = errorMsg.substring(0, errorMsg.length() - 2);
-				label.setText(errorMsg);
-			} else {
-				// String id, Airline airline, Flughafen flughafenAb, Flughafen flughafenAn,
-				// String zeiten
-				Angebot angebot = new Angebot(bez, airline, depAirport, arrAirport,
-						depTime, arrTime);
-				System.out.println(angebot);
-				db.addAngebot(angebot);
-				label.setTextFill(Color.web("#01DF01"));
-				label.setText("Angebot erfolgreich angelegt");
-			}
-		} catch (Exception ex) {
-			ex.printStackTrace();
+			this.tv.setItems(angebote);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
+	}
+
+	private void openUpdateDialog() {
+		FXMLLoader loader = null;
+		AnchorPane root = null;
+		CreateAngebotController controller = null;
+		try {
+			loader = new FXMLLoader(getClass().getResource("/gui/CreateAngebote.fxml"));
+			root = loader.load();
+			controller = loader.getController();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		Stage currentStage = new Stage();
+		Scene scene = new Scene(root);
+		scene.getStylesheets().add(getClass().getResource("/application/application.css").toExternalForm());
+		currentStage.setTitle("Update Angebot");
+		currentStage.setScene(scene);
+		currentStage.initModality(Modality.APPLICATION_MODAL);
+		controller.setAngebot(this.tv.getSelectionModel().getSelectedItem());
+		currentStage.showAndWait();
+		this.fillAngebote();
+
+	}
+
+	@FXML
+	public void addAngebot() {
+		FXMLLoader loader = null;
+		AnchorPane root = null;
+		CreateAngebotController controller = null;
+		try {
+			loader = new FXMLLoader(getClass().getResource("/gui/CreateAngebote.fxml"));
+			root = loader.load();
+			controller = loader.getController();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		Stage currentStage = new Stage();
+		Scene scene = new Scene(root);
+		currentStage.setTitle("Add Angebot");
+		scene.getStylesheets().add(getClass().getResource("/application/application.css").toExternalForm());
+		currentStage.setScene(scene);
+		currentStage.initModality(Modality.APPLICATION_MODAL);
+		currentStage.showAndWait();
+		this.fillAngebote();
 	}
 
 }

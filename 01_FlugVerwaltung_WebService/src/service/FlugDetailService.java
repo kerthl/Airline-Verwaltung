@@ -1,12 +1,8 @@
 package service;
 
-
-
 import java.io.IOException;
 
 import java.util.LinkedList;
-
-
 
 import javax.ws.rs.core.Context;
 
@@ -40,35 +36,25 @@ import bll.*;
 
 import dal.Database;
 
-
-
 /**
-
+ * 
  * REST Web Service
-
  *
-
+ * 
+ * 
  */
-
-
 
 @Path("FlugDetail")
 
 public class FlugDetailService {
 
-
-
 	@Context
 
 	private UriInfo context;
 
-
-
 	public FlugDetailService() {
 
 	}
-
-
 
 	@GET
 
@@ -84,8 +70,6 @@ public class FlugDetailService {
 
 		Database db = Database.getInstance();
 
-
-
 		try {
 
 			Flug one = db.getFlugByID(id);
@@ -100,13 +84,9 @@ public class FlugDetailService {
 
 		}
 
-
-
 		return response.build();
 
 	}
-
-	
 
 	@POST
 
@@ -119,8 +99,6 @@ public class FlugDetailService {
 		Database db = Database.getInstance();
 
 		System.out.println("======================NEW Flug: " + strFlug);
-
-
 
 		try {
 
@@ -142,8 +120,6 @@ public class FlugDetailService {
 
 	}
 
-	
-
 	@PUT
 
 	@Consumes({ MediaType.APPLICATION_JSON })
@@ -162,8 +138,6 @@ public class FlugDetailService {
 
 			response.entity("Flug updatet");
 
-
-
 		} catch (Exception e) {
 
 			response.status(Response.Status.BAD_REQUEST);
@@ -172,14 +146,26 @@ public class FlugDetailService {
 
 		}
 
-
-
 		return response.build();
 
 	}
+	
+	@DELETE
+	@Consumes({ MediaType.TEXT_HTML, MediaType.TEXT_XML, MediaType.APPLICATION_JSON })
+	@Path("/{id}")
+	public Response deleteArtikel(@PathParam("id") String id) throws IOException {
+		Response.ResponseBuilder response = Response.status(Response.Status.OK);
+		Database db = Database.getInstance();
 
+		try {
+			//db.deleteOneFlug(Integer.valueOf(id));
+			response.entity("artikel deleted");
+		} catch (Exception e) {
+			response.status(Response.Status.BAD_REQUEST);
+			response.entity("[ERROR] " + e.getMessage());
+		}
 
-
-
+		return response.build();
+	}
 
 }

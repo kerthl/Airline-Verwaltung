@@ -4,49 +4,38 @@ import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
 
-
 import bll.Airline;
 import bll.Flugzeug;
 import dal.DataManager;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 
 public class FlugzeugeController implements Initializable {
 
 	@FXML
 	private TableView<Flugzeug> tvFlugzeuge;
-
+	
 	@FXML
-	private Button btnNeuesFlugzeug;
-
+	private Button btnNeu;
+	
 	@FXML
-	private ComboBox<Airline> cbAirline;
-
-	@FXML
-	private TextField txtBezeichnung;
-
-	@FXML
-	private TextField txtSitze;
-
-	@FXML
-	private TextField txtBaujahr;
-
-	@FXML
-	private TextField txtKennzeichen;
-
-	@FXML
-	private TextField txtReihen;
-
-	@FXML
-	private TextField txtSitzeReihe;
+	private Button btnLoeschen;
 
 	TableColumn<Flugzeug, Integer> id = null;
 	TableColumn<Flugzeug, Airline> airline = null;
@@ -58,60 +47,36 @@ public class FlugzeugeController implements Initializable {
 	TableColumn<Flugzeug, Integer> anzahlSitzeProR = null;
 
 	DataManager dm;
-
+	
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 
 		try {
 			dm = DataManager.getInstance();
 			GenerateColumns();
-			fillAirlines();
+			
 			fillFlugzeuge();
+			
+			tvFlugzeuge.setOnMouseClicked(new EventHandler<MouseEvent>() {
+
+				@Override
+				public void handle(MouseEvent click) {
+					if(click.getClickCount() == 2) {
+						try {
+							updateFlugzeug();
+						} catch (Exception e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+					}
+				}
+			});
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
 
-	@FXML
-	void btnNeuesFlugzeugClicked(ActionEvent event) throws Exception {
-		if (!txtBaujahr.getText().trim().isEmpty() || !txtBezeichnung.getText().trim().isEmpty()
-				|| !txtKennzeichen.getText().trim().isEmpty() || !txtReihen.getText().trim().isEmpty()
-				|| !txtSitze.getText().trim().isEmpty() || !txtSitzeReihe.getText().trim().isEmpty()) {
-			Flugzeug neu = generateNewFlugzeug();
-			dm.addFlugzeug(neu);
-			fillFlugzeuge();
-			setAllEmpty();
-		} else {
-
-		}
-	}
-
-	private void setAllEmpty() {
-		txtBaujahr.setText("");
-		txtBezeichnung.setText("");
-		txtKennzeichen.setText("");
-		txtReihen.setText("");
-		txtSitze.setText("");
-		txtSitzeReihe.setText("");
-	}
-
-	private Flugzeug generateNewFlugzeug() {
-		Airline a = cbAirline.getSelectionModel().getSelectedItem();
-		String bez = txtBezeichnung.getText();
-		int ms = Integer.parseInt(txtSitze.getText());
-		int bauj = Integer.parseInt(txtBaujahr.getText());
-		String kennz = txtKennzeichen.getText();
-		int ar = Integer.parseInt(txtReihen.getText());
-		int asr = Integer.parseInt(txtSitzeReihe.getText());
-
-		return new Flugzeug(-99, a, bez, ms, bauj, kennz, ar, asr);
-	}
-
-	public void fillAirlines() throws Exception {
-		List<Airline> alleAirlines = dm.getAirlines();
-		cbAirline.setItems(FXCollections.observableArrayList(alleAirlines));
-		cbAirline.getSelectionModel().selectFirst();
-	}
+	
 
 	private void fillFlugzeuge() throws Exception {
 		List<Flugzeug> alleFZ = dm.getFlugzeuge();
@@ -142,4 +107,39 @@ public class FlugzeugeController implements Initializable {
 				anzahlSitzeProR);
 	}
 
+	@FXML
+	void btnNeuClicked(ActionEvent event) throws Exception {
+		Stage stage = new Stage();
+		AnchorPane root = (AnchorPane) FXMLLoader.load(getClass().getResource("/gui/FlugzeugNeu.fxml"));
+		Scene scene = new Scene(root);	
+		stage.setScene(scene);
+		stage.setTitle("Neues Flugzeug anlegen");
+		stage.initModality(Modality.APPLICATION_MODAL);
+		stage.showAndWait();
+		this.fillFlugzeuge();	
+	}
+	
+	@FXML
+	void btnLoeschenClicked(ActionEvent event) throws Exception {
+		if(tvFlugzeuge.getSelectionModel().getSelectedItem() != null)
+			{
+				dm.deleteFlugzeug(tvFlugzeuge.getSelectionModel().getSelectedItem());
+				this.fillFlugzeuge();
+			}
+	}
+	
+	private void updateFlugzeug() throws Exception {
+		FlugzeugBearbeitenController fbc = new FlugzeugBearbeitenController();
+		Stage stage = new Stage();
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/FlugzeugBearbeiten.fxml"));
+		loader.setController(fbc);
+		AnchorPane root = loader.load();
+		fbc.setFlugzeug(tvFlugzeuge.getSelectionModel().getSelectedItem());
+		Scene scene = new Scene(root);	
+		stage.setScene(scene);
+		stage.setTitle("Flugzeug bearbeiten");
+		stage.initModality(Modality.APPLICATION_MODAL);
+		stage.showAndWait();
+		this.fillFlugzeuge();	
+	}
 }
