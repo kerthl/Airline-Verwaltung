@@ -2,6 +2,7 @@ package gui;
 
 import java.net.URL;
 import java.time.LocalDate;
+import java.time.Month;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.ResourceBundle;
@@ -35,7 +36,7 @@ public class UpdateFlugController implements Initializable {
 	@FXML
 	Label lbAngebot;
 	@FXML
-	Label lbFehler;
+	Label label;
 
 	ObservableList<Pilot> sPiloten = FXCollections.observableArrayList();
 	ObservableList<Flugzeug> sFlugzeuge = FXCollections.observableArrayList();
@@ -50,6 +51,9 @@ public class UpdateFlugController implements Initializable {
 			this.cbFO.getSelectionModel().select(this.momentan.getFirstOfficer());
 			this.cbFlugzeug.getSelectionModel().select(this.momentan.getFlugzeug());
 			this.lbAngebot.setText(this.momentan.getAngebot().toString());
+			String [] date = this.momentan.getDatum().split(".");
+			System.out.println(date);
+			this.dpDate.setValue(LocalDate.of(Integer.parseInt(date[0]),Month.valueOf(date[1]),Integer.parseInt(date[2])));
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -64,10 +68,10 @@ public class UpdateFlugController implements Initializable {
 				updateFlug();
 				DataManager.getInstance().updateFlug(this.momentan);
 			} else {
-				this.lbFehler.setText("Ein Pilot kann nicht Pilot und Co-Pilot gleichzeitig sein!");
+				this.label.setText("Ein Pilot kann nicht Pilot und Co-Pilot gleichzeitig sein!");
 			}
 		} else {
-			this.lbFehler.setText("Bitte füllen Sie alle Felder aus!");
+			this.label.setText("Bitte füllen Sie alle Felder aus!");
 		}
 
 	}

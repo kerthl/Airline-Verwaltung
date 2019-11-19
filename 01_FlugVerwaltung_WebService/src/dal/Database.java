@@ -14,7 +14,7 @@ import bll.*;
 public class Database {
 
 	private static String cN = "oracle.jdbc.driver.OracleDriver";
-	private static String url = "jdbc:oracle:thin:@10.0.6.111:1521:ora11g";
+	private static String url = "jdbc:oracle:thin:@212.152.179.117:1521:ora11g";
 	//212.152.179.117
 	private static String benutzer = "d4a29";
 	private static String passwort = "d4a";

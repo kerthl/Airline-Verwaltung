@@ -84,6 +84,7 @@
                </children>
             </GridPane>
             <Label textFill="#b93434" GridPane.rowIndex="1" />
+            <Label fx:id="label" GridPane.rowIndex="1" />
 			</children>
 		</GridPane>
 	</bottom>

@@ -68,7 +68,7 @@ public class CreateFlugController implements Initializable {
 		Flugzeug fz = this.cbFlugzeug.getSelectionModel().getSelectedItem();
 		
 		
-		String europeanDatePattern = "yyyy-MM-dd";
+		String europeanDatePattern = "dd.MM.yyyy";
 		DateTimeFormatter europeanDateFormatter = DateTimeFormatter.ofPattern(europeanDatePattern);
 		
 		String datum = this.dpDate.getValue().format(europeanDateFormatter);

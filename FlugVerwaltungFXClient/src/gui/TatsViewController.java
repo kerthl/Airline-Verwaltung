@@ -104,7 +104,7 @@ public class TatsViewController implements Initializable {
 		BorderPane root = null;
 		UpdateFlugController controller = null;
 		try {
-			loader = new FXMLLoader(getClass().getResource("UpdateFlug.fxml"));
+			loader = new FXMLLoader(getClass().getResource("/gui/UpdateFlug.fxml"));
 			root = loader.load();
 			controller = loader.getController();
 		} catch (IOException e) {
@@ -112,7 +112,7 @@ public class TatsViewController implements Initializable {
 		}
 		Stage currentStage = new Stage();
 		Scene scene = new Scene(root);
-		scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
+		scene.getStylesheets().add(getClass().getResource("/application/application.css").toExternalForm());
 		currentStage.setTitle("Update Flug");
 		currentStage.setScene(scene);
 		currentStage.initModality(Modality.APPLICATION_MODAL);
