@@ -81,4 +81,16 @@ public class MainController implements Initializable {
 		AnchorPane pane = FXMLLoader.load(getClass().getResource("/gui/CreateFlug.fxml"));
 		this.pane.getChildren().setAll(pane);
 	}
+	
+	public void neuesFlugzeug() throws IOException {
+		pane.getChildren().clear();
+		AnchorPane pane = FXMLLoader.load(getClass().getResource("/gui/FlugzeugNeu.fxml"));
+		this.pane.getChildren().setAll(pane);
+	}
+	
+	public void alleFlugzeuge() throws IOException {
+		pane.getChildren().clear();
+		AnchorPane pane = FXMLLoader.load(getClass().getResource("/gui/Flugzeuge.fxml"));
+		this.pane.getChildren().setAll(pane);
+	}
 }

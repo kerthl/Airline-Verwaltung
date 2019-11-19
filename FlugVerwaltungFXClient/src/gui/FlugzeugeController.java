@@ -13,6 +13,7 @@ import dal.DataManager;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
@@ -20,6 +21,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.AnchorPane;
 
 public class FlugzeugeController implements Initializable {
 
@@ -49,6 +51,11 @@ public class FlugzeugeController implements Initializable {
 
 	@FXML
 	private TextField txtSitzeReihe;
+	
+	Button btnNeu;
+	Button btnZurueck;
+	
+	AnchorPane pane;
 
 	TableColumn<Flugzeug, Integer> id = null;
 	TableColumn<Flugzeug, Airline> airline = null;
@@ -67,7 +74,7 @@ public class FlugzeugeController implements Initializable {
 		try {
 			dm = DataManager.getInstance();
 			GenerateColumns();
-			fillAirlines();
+			//fillAirlines();
 			fillFlugzeuge();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -144,4 +151,17 @@ public class FlugzeugeController implements Initializable {
 				anzahlSitzeProR);
 	}
 
+	@FXML
+	void btnNeuClicked(ActionEvent event) throws Exception {
+		//pane.getChildren().clear();
+		AnchorPane pane = FXMLLoader.load(getClass().getResource("/gui/FlugzeugNeu.fxml"));
+		this.pane.getChildren().setAll(pane);
+	}
+	
+	@FXML
+	void btnZurueckClicked(ActionEvent event) throws Exception {
+		pane.getChildren().clear();
+		AnchorPane pane = FXMLLoader.load(getClass().getResource("/gui/Flugzeuge.fxml"));
+		this.pane.getChildren().setAll(pane);
+	}
 }
