@@ -125,6 +125,31 @@ public class Database {
 		return result;
 	}
 	
+	public boolean updateFlugzeug(Flugzeug f) {
+		boolean result = false;
+		String updateString = null;
+		java.sql.PreparedStatement pstmt = null;
+		updateString = "UPDATE flugzeug SET idAirline = ?, bezeichnung = ?, maxSitze = ?, baujahr = ?, kennzeichen = ?, anzahlReihen = ?, anzahlSitzeProR = ? WHERE id = ? ";
+
+		try {
+			pstmt = con.prepareStatement(updateString);
+			pstmt.setInt(1, f.getAirline().getId());
+			pstmt.setString(2, f.getBezeichnung());
+			pstmt.setInt(3, f.getMaxSitze());
+			pstmt.setInt(4, f.getBaujahr());
+			pstmt.setString(5, f.getKennzeichen());
+			pstmt.setInt(6, f.getAnzahlReihen());
+			pstmt.setInt(7, f.getAnzahlSitzeProReihe());
+			pstmt.setInt(8, f.getId());
+			
+			result = pstmt.execute();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
+	
+	
 	public boolean addFlug(Flug f) {
 		java.sql.PreparedStatement pstmt = null;
 		boolean result = false;
@@ -446,6 +471,19 @@ public class Database {
 		return result;
 	}
 
+	public void deleteFlugzeug(int id) throws Exception {
+		try {
+		String query = "delete from flugzeug where Id = ?";
+        PreparedStatement preparedStmt = con.prepareStatement(query);
+        preparedStmt.setInt(1, id);
+
+        preparedStmt.execute();
+		} catch (Exception ex) {
+			System.err.print("------------ error: " + ex);
+			throw new Exception("error when deleting flugzeug from db: " + ex.getMessage());
+		}
+	}
+	
 	private int getNextAirlineID() {
 		Statement stmt = null;
 		ResultSet rs = null;

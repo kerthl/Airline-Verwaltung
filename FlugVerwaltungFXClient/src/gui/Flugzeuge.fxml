@@ -19,5 +19,6 @@
             <Font name="System Bold Italic" size="20.0" />
          </font>
       </Label>
+      <Button fx:id="btnLoeschen" layoutX="679.0" layoutY="355.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="87.0" text="LÖSCHEN" />
    </children>
 </AnchorPane>

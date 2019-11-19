@@ -208,4 +208,18 @@ public class DataManager {
 		Invocation.Builder invocationBuilder = this.webTargetFlugDetail.request(MediaType.APPLICATION_JSON);
 		Response response = invocationBuilder.put(Entity.entity(f, MediaType.APPLICATION_JSON));
 	}
+	
+	public void updateFlugzeug(Flugzeug f) {
+		Invocation.Builder invocationBuilder = this.webTargetFlugzeugDetail.request(MediaType.APPLICATION_JSON);
+		Response response = invocationBuilder.put(Entity.entity(f, MediaType.APPLICATION_JSON));
+	}
+	
+	public void deleteFlugzeug(Flugzeug f) {
+		Invocation.Builder invocationBuilder = null;
+		Response response = null;
+
+		WebTarget webtarget = this.webTargetFlugzeugDetail.path(String.valueOf(f.getId()));
+		invocationBuilder = webtarget.request(MediaType.APPLICATION_JSON);
+		response = invocationBuilder.accept(MediaType.APPLICATION_JSON).delete();
+	}
 }

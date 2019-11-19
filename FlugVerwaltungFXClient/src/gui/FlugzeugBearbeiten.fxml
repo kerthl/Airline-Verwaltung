@@ -11,9 +11,9 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="400.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.FlugzeugNeuController">
-   <children>
-      <Label alignment="BASELINE_CENTER" contentDisplay="CENTER" layoutX="17.0" layoutY="33.0" prefHeight="25.0" prefWidth="764.0" style="-fx-background-color: #f0f7ff;" text="NEUES FLUGZEUG ANLEGEN">
+<AnchorPane prefHeight="400" prefWidth="800" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/11.0.1">
+	 <children>
+      <Label alignment="BASELINE_CENTER" contentDisplay="CENTER" layoutX="17.0" layoutY="33.0" prefHeight="25.0" prefWidth="764.0" style="-fx-background-color: #f0f7ff;" text="FLUGZEUG BEARBEITEN">
          <font>
             <Font name="System Bold" size="13.0" />
          </font></Label>
@@ -76,7 +76,7 @@
             </TextField>
          </children>
       </GridPane>
-      <Button fx:id="btnNeuesFlugzeug" layoutX="357.0" layoutY="347.0" mnemonicParsing="false" onAction="#btnNeuesFlugzeugClicked" prefHeight="25.0" prefWidth="200.0" text="Neues Flugzeug" />
+      <Button fx:id="btnSpeichern" layoutX="357.0" layoutY="347.0" mnemonicParsing="false" onAction="#btnSpeichernClicked" prefHeight="25.0" prefWidth="200.0" text="SPEICHERN" />
       <Button fx:id="btnZurueck" layoutX="673.0" layoutY="347.0" mnemonicParsing="false" onAction="#btnZurueckClicked" prefHeight="25.0" prefWidth="91.0" text="Zurück" />
    </children>
 </AnchorPane>
