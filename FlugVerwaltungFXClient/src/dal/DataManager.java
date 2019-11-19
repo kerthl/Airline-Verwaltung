@@ -256,4 +256,14 @@ public class DataManager {
 		Invocation.Builder invocationBuilder = this.webTargetFlugDetail.request(MediaType.APPLICATION_JSON);
 		Response response = invocationBuilder.put(Entity.entity(f, MediaType.APPLICATION_JSON));
 	}
+
+	public void updateAngebot(Angebot angebot) {
+		Invocation.Builder invocationBuilder = this.webTargetAngeboteDetail.request(MediaType.APPLICATION_JSON);
+		invocationBuilder.put(Entity.entity(angebot, MediaType.APPLICATION_JSON));
+	}
+
+	public void deleteAngebot(Object item) {
+		// TODO Auto-generated method stub
+		
+	}
 }

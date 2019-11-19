@@ -296,7 +296,7 @@ public class Database {
 				Airline airline = this.getAirlineByID(rs.getInt(2));
 				Flughafen f1 = this.getFlughafenByID(rs.getInt(3));
 				Flughafen f2 = this.getFlughafenByID(rs.getInt(4));
-				listAngebote.add(new Angebot(rs.getString(1), airline, f1, f2, rs.getString(5)));
+				listAngebote.add(new Angebot(rs.getString(1), airline, f1, f2, rs.getString(5), rs.getString(6)));
 
 			}
 
@@ -326,7 +326,7 @@ public class Database {
 				Airline airline = this.getAirlineByID(rs.getInt(2));
 				Flughafen f1 = this.getFlughafenByID(rs.getInt(3));
 				Flughafen f2 = this.getFlughafenByID(rs.getInt(4));
-				result = new Angebot(rs.getString(1), airline, f1, f2, rs.getString(5));
+				result = new Angebot(rs.getString(1), airline, f1, f2, rs.getString(5), rs.getString(6));
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -465,6 +465,52 @@ public class Database {
 			}
 		}
 		return result;
+	}
+
+	public void setAngebot(Angebot Angebot) throws Exception {
+		try {
+			PreparedStatement pstmt;
+			pstmt = con.prepareStatement("INSERT INTO angebot VALUES (?,?,?,?,?,?)");
+			pstmt.setString(1, Angebot.getFlugNummer());
+			pstmt.setInt(2, Angebot.getAirline().getId());
+			pstmt.setInt(3, Angebot.getFlughafenAb().getId());
+			pstmt.setInt(4, Angebot.getFlughafenAn().getId());
+			pstmt.setString(5, Angebot.getAbflugszeit());
+			pstmt.setString(6, Angebot.getAnkunftszeit());
+			pstmt.execute();
+		} catch (Exception e) {
+			System.out.println(e);
+		} 
+	}
+
+	public void updateAngebot(Angebot a) {
+		String updateString = null;
+		updateString = "UPDATE Angebot SET flughafenAb = ?, flughafenAn = ?, ankunftszeit = ?, abflugszeit = ? WHERE flugNummer = ?";
+
+		try {
+			PreparedStatement pstmt;
+			pstmt = con.prepareStatement(updateString);
+			pstmt.setString(1, a.getFlughafenAb().toString());
+			pstmt.setString(2, a.getFlughafenAn().toString());
+			pstmt.setString(3, a.getAbflugszeit());
+			pstmt.setString(4, a.getAnkunftszeit());
+			pstmt.setString(5, a.getFlugNummer());
+
+			pstmt.execute();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void deleteAngebot(Integer _id) {
+		try {
+			PreparedStatement pstmt;
+			pstmt = con.prepareStatement("DELETE FROM Angebot WHERE flugNummer=?");
+			pstmt.setInt(1, _id);
+			pstmt.execute();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} 
 	}
 
 }

@@ -50,7 +50,7 @@ public class MainController implements Initializable {
 	@FXML
 	void btnAngeboteClicked(ActionEvent event) throws IOException {
 		pane.getChildren().clear();
-		AnchorPane pane = FXMLLoader.load(getClass().getResource("/gui/Angebote.fxml"));
+		AnchorPane pane = FXMLLoader.load(getClass().getResource("/gui/AngeboteView.fxml"));
 		this.pane.getChildren().setAll(pane);
 	}
 
