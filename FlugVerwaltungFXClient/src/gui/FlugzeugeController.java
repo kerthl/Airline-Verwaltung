@@ -67,7 +67,7 @@ public class FlugzeugeController implements Initializable {
 	TableColumn<Flugzeug, Integer> anzahlSitzeProR = null;
 
 	DataManager dm;
-
+	
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 
@@ -153,9 +153,7 @@ public class FlugzeugeController implements Initializable {
 
 	@FXML
 	void btnNeuClicked(ActionEvent event) throws Exception {
-		//pane.getChildren().clear();
-		AnchorPane pane = FXMLLoader.load(getClass().getResource("/gui/FlugzeugNeu.fxml"));
-		this.pane.getChildren().setAll(pane);
+
 	}
 	
 	@FXML
