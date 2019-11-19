@@ -7,6 +7,7 @@ import util.PropertyManager;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
@@ -26,6 +27,8 @@ public class DataManager {
 	String resource;
 	WebTarget webTarget;
 	WebTarget webTargetAngeboteList;
+	WebTarget webTargetAngeboteDetail;
+	WebTarget webTargetFlughafenListe;
 	WebTarget webTargetPilotenList;
 	WebTarget webTargetFlugzeugList;
 	WebTarget webTargetFlugList;
@@ -44,11 +47,14 @@ public class DataManager {
 		try {
 			pm = PropertyManager.getInstance();
 			webTarget = client.target(pm.readProperty("resource"));
+			webTargetAngeboteDetail = webTarget.path(pm.readProperty("webTargetAngeboteDetail"));
 			webTargetPilotenList = webTarget.path(pm.readProperty("webTargetPilotenList"));
 			webTargetFlugzeugList = webTarget.path(pm.readProperty("webTargetFlugzeugList"));
 			webTargetFlugList = webTarget.path(pm.readProperty("webTargetFlugList"));
 			webTargetFlugDetail = webTarget.path(pm.readProperty("webTargetFlugDetail"));
 			webTargetAirlineList = webTarget.path(pm.readProperty("webTargetAirlineList"));
+			webTargetFlughafenListe = webTarget.path(pm.readProperty("webTargetFlughafenListe"));
+			webTargetAngeboteList = webTarget.path(pm.readProperty("webTargetAngeboteList"));
 			webTargetFlugzeugDetail = webTarget.path(pm.readProperty("webTargetFlugzeugDetail"));
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
@@ -106,6 +112,41 @@ public class DataManager {
 		return angeboteAsList;
 	}
 
+	public boolean addAngebot(Angebot angebot) {
+		Invocation.Builder invocationBuilder = this.webTargetAngeboteDetail.request(MediaType.APPLICATION_JSON);
+		Response response = invocationBuilder.post(Entity.entity(angebot, MediaType.APPLICATION_JSON));
+
+		if (response.getStatus() == 201) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	
+	
+
+	
+	
+	public ArrayList<Flughafen> getAirports() throws Exception {
+
+		List<Flughafen> airports = null;
+
+		Invocation.Builder invocationBuilder = null;
+		Response response = null;
+
+		try {
+			invocationBuilder = webTargetFlughafenListe.request(MediaType.APPLICATION_JSON);
+			response = invocationBuilder.accept(MediaType.APPLICATION_JSON).get();
+			airports = response.readEntity(new GenericType<List<Flughafen>>() {
+			});
+
+		} catch (Exception ex) {
+			throw new Exception();
+		}
+
+		return (ArrayList<Flughafen>) airports;
+	}
 	public ArrayList<Flugzeug> getFlugzeuge() throws Exception {
 
 		String retFlugzeugeAsJson = null;
@@ -222,4 +263,16 @@ public class DataManager {
 		invocationBuilder = webtarget.request(MediaType.APPLICATION_JSON);
 		response = invocationBuilder.accept(MediaType.APPLICATION_JSON).delete();
 	}
-}
+	public void updateAngebot(Angebot angebot) {
+		Invocation.Builder invocationBuilder = this.webTargetAngeboteDetail.request(MediaType.APPLICATION_JSON);
+		invocationBuilder.put(Entity.entity(angebot, MediaType.APPLICATION_JSON));
+	}
+
+	public void deleteAngebot(Object item) {
+		Invocation.Builder invocationBuilder = null;
+		Response response = null;
+
+		WebTarget webtarget = this.webTargetAngebotDetail.path(String.valueOf(item.getFlugNummer()));
+		invocationBuilder = webtarget.request(MediaType.APPLICATION_JSON);
+		response = invocationBuilder.accept(MediaType.APPLICATION_JSON).delete();
+	}}

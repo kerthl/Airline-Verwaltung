@@ -4,12 +4,12 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import com.jfoenix.controls.JFXButton;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
 
 public class MainController implements Initializable {
@@ -18,19 +18,19 @@ public class MainController implements Initializable {
 	private AnchorPane pane;
 
 	@FXML
-	private JFXButton btnHome;
+	private Button btnHome;
 
 	@FXML
-	private JFXButton btnFlugzeuge;
+	private Button btnFlugzeuge;
 
 	@FXML
-	private JFXButton btnPiloten;
+	private Button btnPiloten;
 
 	@FXML
-	private JFXButton btnAngebote;
+	private Button btnAngebote;
 
 	@FXML
-	private JFXButton btnFluege;
+	private Button btnFluege;
 	
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
@@ -54,7 +54,7 @@ public class MainController implements Initializable {
 	@FXML
 	void btnAngeboteClicked(ActionEvent event) throws IOException {
 		pane.getChildren().clear();
-		AnchorPane pane = FXMLLoader.load(getClass().getResource("/gui/Angebote.fxml"));
+		AnchorPane pane = FXMLLoader.load(getClass().getResource("/gui/AngeboteView.fxml"));
 		this.pane.getChildren().setAll(pane);
 	}
 
@@ -82,7 +82,7 @@ public class MainController implements Initializable {
 	@FXML
 	void btnFluegeClicked(ActionEvent event) throws IOException {
 		pane.getChildren().clear();
-		AnchorPane pane = FXMLLoader.load(getClass().getResource("/gui/CreateFlug.fxml"));
+		AnchorPane pane = FXMLLoader.load(getClass().getResource("/gui/TatsFlugView.fxml"));
 		this.pane.getChildren().setAll(pane);
 	}
 	

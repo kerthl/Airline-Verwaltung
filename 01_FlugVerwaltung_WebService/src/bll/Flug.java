@@ -1,32 +1,58 @@
 package bll;
 
-import java.util.Date;
-
 public class Flug {
-	private Angebot flugangbeot;
-	private Date datum;
+	private Angebot angebot;
+	private String datum;
 	private Pilot captain;
-	private Pilot firstOFFICER;
+	private Pilot firstOfficer;
 	private Flugzeug flugzeug;
 
-	public Flug() {
+	public Flug(Angebot angebot, String datum, Pilot captain, Pilot firstOfficer, Flugzeug flugzeug) {
 		super();
-	}
-
-	public Flug(Angebot flugangbeot, Date datum, Pilot captain, Pilot firstOFFICER, Flugzeug flugzeug) {
-		super();
-		this.flugangbeot = flugangbeot;
+		this.angebot = angebot;
 		this.datum = datum;
 		this.captain = captain;
-		this.firstOFFICER = firstOFFICER;
+		this.firstOfficer = firstOfficer;
 		this.flugzeug = flugzeug;
 	}
 
-	public Date getDatum() {
+	public Flug() {
+
+	}
+
+	public String getAngebotInfo() {
+		return "Nummer: " + this.angebot.getFlugNummer() + " " + this.getAngebot().getFlughafenAb().getBezeichnung()
+				+ " => " + this.getAngebot().getFlughafenAn().getBezeichnung();
+
+	}
+
+	public String getCptInfo() {
+		return this.captain.getVorname() + " " + this.captain.getNachname() + " Lizenz:" + this.captain.getLizenz();
+	}
+
+	public String getFoInfo() {
+		return this.firstOfficer.getVorname() + " " + this.firstOfficer.getNachname() + " Lizenz:"
+				+ this.firstOfficer.getLizenz();
+	}
+
+	public Angebot getAngebot() {
+		return angebot;
+	}
+
+	public String getFlugzeugInfo() {
+		return this.flugzeug.getBezeichnung() + " " + this.flugzeug.getKennzeichen() + " "
+				+ this.flugzeug.getMaxSitze();
+	}
+
+	public void setAngebot(Angebot angebot) {
+		this.angebot = angebot;
+	}
+
+	public String getDatum() {
 		return datum;
 	}
 
-	public void setDatum(Date datum) {
+	public void setDatum(String datum) {
 		this.datum = datum;
 	}
 
@@ -38,20 +64,12 @@ public class Flug {
 		this.captain = captain;
 	}
 
-	public Pilot getFirstOFFICER() {
-		return firstOFFICER;
+	public Pilot getFirstOfficer() {
+		return firstOfficer;
 	}
 
-	public void setFirstOFFICER(Pilot firstOFFICER) {
-		this.firstOFFICER = firstOFFICER;
-	}
-
-	public Angebot getFlugangbeot() {
-		return flugangbeot;
-	}
-
-	public void setFlugangbeot(Angebot flugangbeot) {
-		this.flugangbeot = flugangbeot;
+	public void setFirstOfficer(Pilot firstOfficer) {
+		this.firstOfficer = firstOfficer;
 	}
 
 	public Flugzeug getFlugzeug() {
@@ -64,8 +82,7 @@ public class Flug {
 
 	@Override
 	public String toString() {
-		return "Flug [flugangbeot=" + flugangbeot + ", datum=" + datum + ", captain=" + captain + ", firstOFFICER="
-				+ firstOFFICER + ", flugzeug=" + flugzeug + "]";
+		return "Flug [angebot=" + angebot + ", datum=" + datum + ", captain=" + captain + ", firstOfficer="
+				+ firstOfficer + ", flugzeug=" + flugzeug + "]";
 	}
-
 }
