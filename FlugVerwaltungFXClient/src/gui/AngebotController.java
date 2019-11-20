@@ -57,7 +57,7 @@ public class AngebotController implements Initializable {
 		
 		MenuItem delete = new MenuItem("Delete");
 		delete.setOnAction(event -> {
-		    Object item = tv.getSelectionModel().getSelectedItem();
+		    Angebot item = tv.getSelectionModel().getSelectedItem();
 		    db.deleteAngebot(item);
 		    System.out.println("Selected item: " + item + " deleted");
 		    this.fillAngebote();
