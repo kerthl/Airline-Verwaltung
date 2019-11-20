@@ -40,6 +40,10 @@ public class MainController implements Initializable {
 			e.printStackTrace();
 		}
 	}
+	
+	public void MainController() {
+		
+	}
 
 	private void start() throws IOException {
 		pane.getChildren().clear();
@@ -79,6 +83,12 @@ public class MainController implements Initializable {
 	void btnFluegeClicked(ActionEvent event) throws IOException {
 		pane.getChildren().clear();
 		AnchorPane pane = FXMLLoader.load(getClass().getResource("/gui/TatsFlugView.fxml"));
+		this.pane.getChildren().setAll(pane);
+	}
+	
+	public void alleFlugzeuge() throws IOException {
+		pane.getChildren().clear();
+		AnchorPane pane = FXMLLoader.load(getClass().getResource("/gui/Flugzeuge.fxml"));
 		this.pane.getChildren().setAll(pane);
 	}
 }
