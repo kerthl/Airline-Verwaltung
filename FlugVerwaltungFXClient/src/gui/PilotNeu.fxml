@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+
+<AnchorPane fx:controller="gui.PilotNeuController2" prefHeight="200.0" prefWidth="341.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <GridPane prefHeight="200.0" prefWidth="341.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <ComboBox fx:id="cbAirline" onAction="#airlineselected" prefHeight="50.0" prefWidth="182.0" promptText="Airline" GridPane.columnIndex="1" />
+            <Label fx:id="lbAirline" alignment="CENTER" contentDisplay="CENTER" prefHeight="50.0" prefWidth="194.0" text="Airline" />
+            <Label alignment="CENTER" prefHeight="50.0" prefWidth="201.0" text="Vorname" GridPane.rowIndex="1" />
+            <TextField fx:id="tfVorname" alignment="CENTER" prefHeight="70.0" prefWidth="100.0" promptText="Vorname" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <Label fx:id="lbNachnahme" alignment="CENTER" prefHeight="151.0" prefWidth="373.0" text="Nachname" GridPane.rowIndex="2" />
+            <TextField fx:id="tfNachname" alignment="CENTER" prefHeight="56.0" prefWidth="100.0" promptText="Nachname" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <Label fx:id="lbLizenz" alignment="CENTER" prefHeight="50.0" prefWidth="194.0" text="Lizenz" GridPane.rowIndex="3" />
+            <TextField fx:id="tfLizenz" alignment="CENTER" prefHeight="66.0" prefWidth="100.0" promptText="Lizenz" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <Button fx:id="btnAddPilot" alignment="CENTER" mnemonicParsing="false" onAction="#btnAddPilotClicked" prefHeight="104.0" prefWidth="280.0" text="ADD" GridPane.rowIndex="4" />
+            <Button fx:id="btnCancelPilot" mnemonicParsing="false" onAction="#btnCancelPilotClicked" prefHeight="125.0" prefWidth="267.0" text="CANCEL" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+         </children>
+      </GridPane>
+   </children>
+</AnchorPane>

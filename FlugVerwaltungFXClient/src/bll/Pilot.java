@@ -20,6 +20,13 @@ public class Pilot {
 		
 	}
 
+	public Pilot(Airline a, String vn, String nn, String linz) {
+		this.airline = a;
+		this.vorname = vn;
+		this.nachname = nn;
+		this.lizenz = linz;
+	}
+
 	public int getId() {
 		return id;
 	}

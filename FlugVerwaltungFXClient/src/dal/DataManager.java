@@ -30,6 +30,8 @@ public class DataManager {
 	WebTarget webTargetAngeboteDetail;
 	WebTarget webTargetFlughafenListe;
 	WebTarget webTargetPilotenList;
+	WebTarget webTargetPilotenDetail;
+
 	WebTarget webTargetFlugzeugList;
 	WebTarget webTargetFlugList;
 	WebTarget webTargetFlugDetail;
@@ -49,6 +51,7 @@ public class DataManager {
 			webTarget = client.target(pm.readProperty("resource"));
 			webTargetAngeboteDetail = webTarget.path(pm.readProperty("webTargetAngeboteDetail"));
 			webTargetPilotenList = webTarget.path(pm.readProperty("webTargetPilotenList"));
+			webTargetPilotenDetail = webTarget.path(pm.readProperty("webTargetPilotenDetail"));
 			webTargetFlugzeugList = webTarget.path(pm.readProperty("webTargetFlugzeugList"));
 			webTargetFlugList = webTarget.path(pm.readProperty("webTargetFlugList"));
 			webTargetFlugDetail = webTarget.path(pm.readProperty("webTargetFlugDetail"));
@@ -123,11 +126,6 @@ public class DataManager {
 		}
 	}
 
-	
-	
-
-	
-	
 	public ArrayList<Flughafen> getAirports() throws Exception {
 
 		List<Flughafen> airports = null;
@@ -147,6 +145,7 @@ public class DataManager {
 
 		return (ArrayList<Flughafen>) airports;
 	}
+
 	public ArrayList<Flugzeug> getFlugzeuge() throws Exception {
 
 		String retFlugzeugeAsJson = null;
@@ -169,7 +168,7 @@ public class DataManager {
 
 		return fluegzeugeAsList;
 	}
-	
+
 	public void addFlugzeug(Flugzeug f) {
 		Invocation.Builder invocationBuilder = null;
 		Response response = null;
@@ -205,7 +204,6 @@ public class DataManager {
 		return airlinesAsList;
 	}
 
-	
 	public ArrayList<Pilot> getPiloten() throws Exception {
 
 		String retPilotAsJson = null;
@@ -249,12 +247,12 @@ public class DataManager {
 		Invocation.Builder invocationBuilder = this.webTargetFlugDetail.request(MediaType.APPLICATION_JSON);
 		Response response = invocationBuilder.put(Entity.entity(f, MediaType.APPLICATION_JSON));
 	}
-	
+
 	public void updateFlugzeug(Flugzeug f) {
 		Invocation.Builder invocationBuilder = this.webTargetFlugzeugDetail.request(MediaType.APPLICATION_JSON);
 		Response response = invocationBuilder.put(Entity.entity(f, MediaType.APPLICATION_JSON));
 	}
-	
+
 	public void deleteFlugzeug(Flugzeug f) {
 		Invocation.Builder invocationBuilder = null;
 		Response response = null;
@@ -263,6 +261,7 @@ public class DataManager {
 		invocationBuilder = webtarget.request(MediaType.APPLICATION_JSON);
 		response = invocationBuilder.accept(MediaType.APPLICATION_JSON).delete();
 	}
+
 	public void updateAngebot(Angebot angebot) {
 		Invocation.Builder invocationBuilder = this.webTargetAngeboteDetail.request(MediaType.APPLICATION_JSON);
 		invocationBuilder.put(Entity.entity(angebot, MediaType.APPLICATION_JSON));
@@ -275,4 +274,26 @@ public class DataManager {
 		WebTarget webtarget = this.webTargetAngeboteDetail.path(String.valueOf(item.getFlugNummer()));
 		invocationBuilder = webtarget.request(MediaType.APPLICATION_JSON);
 		response = invocationBuilder.accept(MediaType.APPLICATION_JSON).delete();
-	}}
+	}
+
+	public boolean createPilot(Pilot p) {
+		boolean result = false;
+		try {
+			Invocation.Builder invocationBuilder = this.webTargetPilotenDetail.request(MediaType.APPLICATION_JSON);
+			Response response = invocationBuilder.post(Entity.entity(p, MediaType.APPLICATION_JSON));
+			if (response.getStatus() == 201) {
+				result = true;
+			}
+
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+		return result;
+
+	}
+
+	public void updatePilot(Pilot p) {
+		Invocation.Builder invocationBuilder = this.webTargetPilotenDetail.request(MediaType.APPLICATION_JSON);
+		Response response = invocationBuilder.put(Entity.entity(p, MediaType.APPLICATION_JSON));
+	}
+}

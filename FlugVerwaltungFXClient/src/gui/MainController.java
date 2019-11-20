@@ -75,7 +75,7 @@ public class MainController implements Initializable {
 	@FXML
 	void btnPilotenClicked(ActionEvent event) throws IOException {
 		pane.getChildren().clear();
-		AnchorPane pane = FXMLLoader.load(getClass().getResource("/gui/Piloten.fxml"));
+		AnchorPane pane = FXMLLoader.load(getClass().getResource("/gui/Pilot.fxml"));
 		this.pane.getChildren().setAll(pane);
 	}
 

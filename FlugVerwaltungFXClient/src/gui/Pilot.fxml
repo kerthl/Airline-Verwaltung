@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ContextMenu?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane fx:controller="gui.PilotController" fx:id="aPAddPilot" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <TableView fx:id="tvPilotList" layoutX="131.0" layoutY="166.0" prefHeight="360.0" prefWidth="600.0" AnchorPane.bottomAnchor="40.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <contextMenu>
+            <ContextMenu>
+              <items>
+                <MenuItem fx:id="ctxDelete" mnemonicParsing="false" onAction="#deleteClicked" text="Loeschen" />
+              </items>
+            </ContextMenu>
+         </contextMenu>
+      </TableView>
+      <Button fx:id="btnNeu" layoutY="360.0" mnemonicParsing="false" onAction="#btnNeuerPilotClicked" prefHeight="40.0" prefWidth="600.0" text="NEU" />
+   </children>
+</AnchorPane>
