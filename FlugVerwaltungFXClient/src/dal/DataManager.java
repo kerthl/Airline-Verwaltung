@@ -268,11 +268,11 @@ public class DataManager {
 		invocationBuilder.put(Entity.entity(angebot, MediaType.APPLICATION_JSON));
 	}
 
-	public void deleteAngebot(Object item) {
+	public void deleteAngebot(Angebot item) {
 		Invocation.Builder invocationBuilder = null;
 		Response response = null;
 
-		WebTarget webtarget = this.webTargetAngebotDetail.path(String.valueOf(item.getFlugNummer()));
+		WebTarget webtarget = this.webTargetAngeboteDetail.path(String.valueOf(item.getFlugNummer()));
 		invocationBuilder = webtarget.request(MediaType.APPLICATION_JSON);
 		response = invocationBuilder.accept(MediaType.APPLICATION_JSON).delete();
 	}}
