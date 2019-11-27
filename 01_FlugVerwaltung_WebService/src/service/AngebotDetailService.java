@@ -14,7 +14,6 @@ import javax.ws.rs.core.Response;
 import com.google.gson.Gson;
 
 import bll.Angebot;
-import bll.Flug;
 import dal.Database;
 
 /**

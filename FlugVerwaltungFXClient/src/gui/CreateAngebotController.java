@@ -1,14 +1,11 @@
 package gui;
 
 import java.net.URL;
-import java.time.LocalDate;
-import java.time.Month;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 import bll.Airline;
 import bll.Angebot;
-import bll.Flug;
 import bll.Flughafen;
 import dal.DataManager;
 import javafx.fxml.FXML;
@@ -18,7 +15,6 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.paint.Color;
-import javafx.stage.Stage;
 
 public class CreateAngebotController implements Initializable {
 

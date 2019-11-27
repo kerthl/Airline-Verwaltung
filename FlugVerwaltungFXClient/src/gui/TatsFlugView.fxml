@@ -7,28 +7,38 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.effect.DropShadow?>
 
+<AnchorPane prefHeight="400" prefWidth="800"
+	xmlns="http://javafx.com/javafx/11.0.1"
+	xmlns:fx="http://javafx.com/fxml/1"
+	fx:controller="gui.TatsViewController">
+	<children>
 
-<AnchorPane xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.TatsViewController">
-   <children>
-      <BorderPane>
-      	<top>
-      		<Label text="Tatsächliche Flüge" BorderPane.alignment="CENTER" />
-      	</top>
-      	<center>
-      		<TableView fx:id="tv" prefHeight="387.0" prefWidth="949.0" BorderPane.alignment="CENTER">
-      			<contextMenu>
-      				<ContextMenu>
-      					<items>
-      						<MenuItem mnemonicParsing="false" onAction="#deleteFlug" text="Delete" />
-      					</items>
-      				</ContextMenu>
-      			</contextMenu>
-      		</TableView>
-      	</center>
-      	<bottom>
-      		<Button mnemonicParsing="false" onAction="#addFLug" text="Neuen Flug planen" BorderPane.alignment="CENTER" />
-      	</bottom>
-      </BorderPane>
-   </children>
+		<Label alignment="BASELINE_CENTER" layoutX="32.0" layoutY="25.0"
+			prefHeight="34.0" prefWidth="734.0"
+			style="-fx-background-color: lightblue;" text="TATSÄCHLICHE FLÜGE">
+			<font>
+				<Font name="System Bold Italic" size="20.0" />
+			</font>
+		</Label>
+	
+		<TableView fx:id="tv" layoutX="32.0" layoutY="79.0" prefHeight="266.0" prefWidth="734.0" style="-fx-background-color: #f0f7ff;">
+         <effect>
+            <DropShadow />
+         </effect>
+         <!--  <contextMenu>
+				<ContextMenu>
+					<items>
+						<MenuItem mnemonicParsing="false" onAction="#deleteFlug"
+							text="Delete" />
+					</items>
+				</ContextMenu>
+			</contextMenu>-->
+         </TableView>
+
+		 <Button layoutX="32.0" layoutY="355.0" mnemonicParsing="false" onAction="#addFLug" prefHeight="25.0" prefWidth="71.0" text="NEU" />
+    
+	</children>
 </AnchorPane>

@@ -13,8 +13,6 @@ import javax.ws.rs.core.UriInfo;
 import com.google.gson.Gson;
 
 import bll.Angebot;
-import bll.Flugzeug;
-import bll.Pilot;
 import dal.Database;
 
 @Path("AngebotListe")

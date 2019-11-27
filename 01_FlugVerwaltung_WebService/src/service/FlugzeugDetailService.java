@@ -17,7 +17,6 @@ import javax.ws.rs.core.UriInfo;
 
 import com.google.gson.Gson;
 
-import bll.Flug;
 import bll.Flugzeug;
 import dal.Database;
 

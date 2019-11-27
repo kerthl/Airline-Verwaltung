@@ -3,14 +3,10 @@ package gui;
 import java.net.URL;
 import java.time.LocalDate;
 import java.time.Month;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.ResourceBundle;
 
 import bll.*;
 import dal.DataManager;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -20,7 +16,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 public class UpdateFlugController implements Initializable {

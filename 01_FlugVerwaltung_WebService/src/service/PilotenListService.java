@@ -11,7 +11,6 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 
 import com.google.gson.Gson;
-import bll.Flugzeug;
 import bll.Pilot;
 import dal.Database;
 

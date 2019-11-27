@@ -13,7 +13,6 @@ import javax.ws.rs.core.UriInfo;
 import com.google.gson.Gson;
 
 import bll.Airline;
-import bll.Flugzeug;
 import dal.Database;
 
 @Path("AirlineListe")
