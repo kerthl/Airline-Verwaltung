@@ -1,9 +1,9 @@
 <ng-sidebar-container (onBackdropClicked)="_onBackdropClicked()">
-    <ng-sidebar [(opened)]="_opened" [mode]="over" [keyClose]="true"
+    <ng-sidebar class="sb" [(opened)]="_opened" [mode]="over" [keyClose]="true"
         [autoCollapseHeight]="_autoCollapseHeight" [autoCollapseWidth]="_autoCollapseWidth"
         [closeOnClickOutside]="true" [animate]="true">
 
-        <button class="sidebar-control" (click)="_toggleOpened()">X</button>
+        <a class="sidebar-control" (click)="_toggleOpened()"></a>
         <h1>Menü</h1>
 
         <h2><a closeSidebar>Karte</a></h2>
