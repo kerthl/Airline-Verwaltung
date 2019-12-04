@@ -1,2 +1,28 @@
+<ng-sidebar-container (onBackdropClicked)="_onBackdropClicked()">
+    <ng-sidebar [(opened)]="_opened" [mode]="over" [keyClose]="true"
+        [autoCollapseHeight]="_autoCollapseHeight" [autoCollapseWidth]="_autoCollapseWidth"
+        [closeOnClickOutside]="true" [animate]="true">
 
+        <button class="sidebar-control" (click)="_toggleOpened()">X</button>
+        <h1>Menü</h1>
 
+        <h2><a closeSidebar>Karte</a></h2>
+        <hr>
+        <h2><a closeSidebar>Flughafen</a></h2>
+        <hr>
+        <h2><a closeSidebar>Options</a></h2>
+        <hr>
+
+    </ng-sidebar>
+
+    <div ng-sidebar-content>
+        <header class="sidebar-header">
+            <button (click)="_toggleOpened()" class="sidebar-header__toggle">Toggle sidebar</button>
+            <span>Airline Verwaltung</span>
+        </header>
+
+        <section class="sidebar-contents">
+          <h1>*Karte hier einfügen*</h1>
+        </section>
+    </div>
+</ng-sidebar-container>
