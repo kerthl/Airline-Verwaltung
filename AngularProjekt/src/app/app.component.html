@@ -1,7 +1,10 @@
+<link href='https://api.tiles.mapbox.com/mapbox-gl-js/v1.6.0/mapbox-gl.css' rel='stylesheet' />
+
+
 <ng-sidebar-container (onBackdropClicked)="_onBackdropClicked()">
     <ng-sidebar class="sb" [(opened)]="_opened" [mode]="over" [keyClose]="true"
-        [autoCollapseHeight]="_autoCollapseHeight" [autoCollapseWidth]="_autoCollapseWidth"
-        [closeOnClickOutside]="true" [animate]="true">
+        [autoCollapseHeight]="_autoCollapseHeight" [autoCollapseWidth]="_autoCollapseWidth" [closeOnClickOutside]="true"
+        [animate]="true">
 
         <a class="sidebar-control" (click)="_toggleOpened()"></a>
         <h1>Menü</h1>
@@ -22,7 +25,7 @@
         </header>
 
         <section class="sidebar-contents">
-          <h1>*Karte hier einfügen*</h1>
+            <div class="map" id="map" class="match-parent"></div>
         </section>
     </div>
 </ng-sidebar-container>
