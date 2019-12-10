@@ -23,6 +23,9 @@ export class KarteComponent implements OnInit {
       center: [this.lng, this.lat]
     });    // Add map controls
     this.map.addControl(new mapboxgl.NavigationControl());
+    let marker = new mapboxgl.Marker()
+      .setLngLat([13.85062, 46.60856])
+        .addTo(this.map);
   }
 
 }
