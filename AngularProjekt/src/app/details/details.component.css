@@ -1,0 +1,66 @@
+body {
+  background: #262626;
+  font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+  font-size: 14px;
+  color:#000;
+  margin: 0;
+  padding: 0;
+}
+.swiper-container {
+  width: 100%;
+  padding-top: 50px;
+  padding-bottom: 50px;
+}
+.swiper-slide {
+  background-position: center;
+  background-size: cover;
+  width: 500px;
+  height: 500px;
+  background: #fff;
+}
+
+.swiper-slide .content {
+  margin: 20px;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.swiper-slide .content p {
+  font-size: 20px;
+}
+
+.swiper-slide .airline {
+  position: relative;
+  width: 100%;
+  height: 200px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #000;
+}
+
+
+.swiper-slide .airline h3 {
+  color: #fff;
+  font-size: 3em;
+}
+
+.swiper-slide:nth-child(5n+1) .airline {
+    background: #2196f3;
+}
+.swiper-slide:nth-child(5n+2) .airline {
+  background: #e91e63;
+}
+.swiper-slide:nth-child(5n+3) .airline {
+  background: #c3d41a;
+}
+.swiper-slide:nth-child(5n+4) .airline {
+  background: #ff9800;
+}
+.swiper-slide:nth-child(5n+5) .airline {
+  background: #c33ada;
+}
+
+.headline {
+  text-align: center;
+}

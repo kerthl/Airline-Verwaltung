@@ -7,11 +7,15 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 
 import { SidebarModule } from 'ng-sidebar';
+import { DetailsComponent } from './details/details.component';
+import { KarteComponent } from './karte/karte.component';
 
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    DetailsComponent,
+    KarteComponent
   ],
   imports: [
     BrowserModule,

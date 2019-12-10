@@ -9,9 +9,11 @@
         <a class="sidebar-control" (click)="_toggleOpened()"></a>
         <h1>Menü</h1>
 
-        <h2><a closeSidebar>Karte</a></h2>
+        <h2><a closeSidebar (click)="openKarte()">Karte</a></h2>
         <hr>
         <h2><a closeSidebar>Flughafen</a></h2>
+        <hr>
+        <h2><a closeSidebar (click)="openDetails()">Details</a></h2>
         <hr>
         <h2><a closeSidebar>Options</a></h2>
         <hr>
@@ -25,7 +27,7 @@
         </header>
 
         <section class="sidebar-contents">
-            <div class="map" id="map" class="match-parent"></div>
+            <router-outlet></router-outlet>
         </section>
     </div>
 </ng-sidebar-container>
