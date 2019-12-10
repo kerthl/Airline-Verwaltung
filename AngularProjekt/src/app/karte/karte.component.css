@@ -1,5 +1,6 @@
 .match-parent {
     padding: 10px;
-    width: 30cm;
-    height: 18cm;
+    width: 100%;
+    min-height: 18cm;
+    height: 100%;
   }
