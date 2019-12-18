@@ -5,19 +5,32 @@ public class Flughafen {
 	private String bezeichnung;
 	private String code;
 	private String ort;
+	private Double breitengrad;
+	private Double laengengrad;
 
-	public Flughafen(int id, String bezeichnung, String code, String ort) {
+	public Flughafen(int id, String bezeichnung, String code, String ort, Double bg, Double lg) {
 		super();
 		this.id = id;
 		this.bezeichnung = bezeichnung;
 		this.code = code;
 		this.ort = ort;
+		this.breitengrad = bg;
+		this.laengengrad = lg;
 	}
-	
+
+	public Flughafen(String bezeichnung, String code, String ort, Double bg, Double lg) {
+		super();
+		this.bezeichnung = bezeichnung;
+		this.code = code;
+		this.ort = ort;
+		this.breitengrad = bg;
+		this.laengengrad = lg;
+	}
+
 	public Flughafen() {
-		
+		super();
 	}
-	
+
 	public int getId() {
 		return id;
 	}
@@ -50,9 +63,25 @@ public class Flughafen {
 		this.ort = ort;
 	}
 
+	public Double getBreitengrad() {
+		return breitengrad;
+	}
+
+	public void setBreitengrad(Double breitengrad) {
+		this.breitengrad = breitengrad;
+	}
+
+	public Double getLaengengrad() {
+		return laengengrad;
+	}
+
+	public void setLaengengrad(Double laengengrad) {
+		this.laengengrad = laengengrad;
+	}
+
 	@Override
 	public String toString() {
-		return "Flughafen [id=" + id + ", bezeichnung=" + bezeichnung + ", code=" + code + ", ort=" + ort + "]";
+		return "Code=" + code + " Ort=" + ort;
 	}
 
 }

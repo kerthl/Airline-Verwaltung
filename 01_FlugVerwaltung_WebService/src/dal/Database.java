@@ -273,8 +273,10 @@ public class Database {
 				String bezeichnung = rs.getString("bezeichnung");
 				String code = rs.getString("code");
 				String ort = rs.getString("ort");
+				Double bg = rs.getDouble(5);
+				Double lg = rs.getDouble(6);
 				
-				result = new Flughafen(id, bezeichnung, code, ort);
+				result = new Flughafen(id, bezeichnung, code, ort, bg, lg);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -459,7 +461,7 @@ public class Database {
 			pstmt.setInt(1, flughafenID);
 			rs = pstmt.executeQuery();
 			if (rs.next()) {
-				result = new Flughafen(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4));
+				result = new Flughafen(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4),rs.getDouble(5),rs.getDouble(6));
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -467,6 +469,24 @@ public class Database {
 
 		}
 		return result;
+	}
+	
+	public LinkedList<Flughafen> GetFlughafen() {
+		Statement stmt = null;
+		listFlughaefen.clear();
+		ResultSet rs = null;
+		try {
+			stmt = con.createStatement();
+			rs = stmt.executeQuery("Select * from flughafen");			
+			while (rs.next()) {
+				listFlughaefen.add(new Flughafen(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4),rs.getDouble(5),rs.getDouble(6)));
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+
+		}
+		return listFlughaefen;
 	}
 
 	public void deleteFlugzeug(int id) throws Exception {
