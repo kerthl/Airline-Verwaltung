@@ -30,5 +30,5 @@ import { KarteComponent } from './karte/karte.component';
 })
 
  export class AppModule {
-
+   
 }
