@@ -13,13 +13,25 @@ export class RequestService {
     ) {
     }
     /**
-     * @param id ID of request-object
+     * used to get data from API
+     */
+    public fetchAirlines() {
+        return this.httpService.fetch('/AirlineListe');
+    }
+    /**
+     * used to get data from API
      */
     public fetchAirports() {
         return this.httpService.fetch('/FlughafenListe');
     }
     /**
-     * uset to post data to API
+     * used to get data from API
+     */
+    public fetchOffer() {
+        return this.httpService.fetch('/AngebotListe');
+    }
+    /**
+     * used to post data to API
      * @param data Request-object
      */
     public post(data: any) {

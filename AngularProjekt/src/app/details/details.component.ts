@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import Swiper from 'swiper';
+import { RequestService } from '../services/request.service';
 
 
 @Component({
@@ -79,11 +80,20 @@ export class DetailsComponent implements OnInit {
     idHeimatFH: 2,
     bezeichnung: 'German Airline'
   }];
+  protected requestService: RequestService;
 
-  constructor() { }
+  constructor(requestService: RequestService) {
+    this.requestService = requestService;
+  }
 
   ngOnInit() {
+    const airlines = this.requestService.fetchAirlines();
+    const airports = this.requestService.fetchAirports();
+    const angebote = this.requestService.fetchOffer();
 
+    angebote.subscribe((req: any) => {
+      console.log(req);
+    })
   }
 
   // tslint:disable-next-line: use-lifecycle-interface
