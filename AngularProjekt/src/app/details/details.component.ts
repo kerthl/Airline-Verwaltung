@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import Swiper from 'swiper';
 import { RequestService } from '../services/request.service';
+import { IfStmt } from '@angular/compiler';
+import { ActivatedRoute, Params } from '@angular/router';
 
 
 @Component({
@@ -10,90 +12,43 @@ import { RequestService } from '../services/request.service';
 })
 export class DetailsComponent implements OnInit {
 
-  private bezeichnung = 'Flughafen Wien';
-  private code = 'VIE1000';
-  private ort = 'Wien';
+  private flughafenAbId = '';
+  private bezeichnung = '';
+  private ort = '';
+  private code = '';
 
-  private flughafen: any = [{
-    id: 1,
-    bezeichnung: 'Flughafen Wien',
-    code: 'VIE1000',
-    ort: 'Wien'
-  },
-  {
-    id: 2,
-    bezeichnung: 'Flughafen München',
-    code: 'MUN_DE',
-    ort: 'München'
-  }
-  ];
+  private flughafen: any = [];
 
-  private angebote: any = [{
-    flugNr: 115,
-    idAirline: 2,
-    idFlughafenAb: 1,
-    idFlughafenAn: 2,
-    abflugszeit: '18:30',
-    ankunftszeit: '20:00'
-  },
-  {
-    flugNr: 230,
-    idAirline: 2,
-    idFlughafenAb: 2,
-    idFlughafenAn: 1,
-    abflugszeit: '15:00',
-    ankunftszeit: '16:00'
-  },
-  {
-    flugNr: 364,
-    idAirline: 1,
-    idFlughafenAb: 1,
-    idFlughafenAn: 1,
-    abflugszeit: '11:00',
-    ankunftszeit: '16:00'
-  },
-  {
-    flugNr: 456,
-    idAirline: 2,
-    idFlughafenAb: 2,
-    idFlughafenAn: 2,
-    abflugszeit: '15:00',
-    ankunftszeit: '24:00'
-  },
-  {
-    flugNr: 824,
-    idAirline: 1,
-    idFlughafenAb: 2,
-    idFlughafenAn: 1,
-    abflugszeit: '06:00',
-    ankunftszeit: '16:00'
-  }
-  ];
+  private angebote: any = [];
 
-  private airlines: any = [{
-    id: 1,
-    idHeimatFH: 1,
-    bezeichnung: 'Austrian Airline'
-  },
-  {
-    id: 2,
-    idHeimatFH: 2,
-    bezeichnung: 'German Airline'
-  }];
+  private airlines: any = [];
   protected requestService: RequestService;
 
-  constructor(requestService: RequestService) {
+  constructor(
+    requestService: RequestService,
+    public route: ActivatedRoute) {
     this.requestService = requestService;
   }
 
   ngOnInit() {
+    this.route.params.forEach((params: Params) => {
+      this.flughafenAbId = params['id'];
+  });
     const airlines = this.requestService.fetchAirlines();
     const airports = this.requestService.fetchAirports();
-    const angebote = this.requestService.fetchOffer();
+    const offers = this.requestService.fetchOffer(this.flughafenAbId);
 
-    angebote.subscribe((req: any) => {
-      console.log(req);
-    })
+    airlines.subscribe((req: any) => {
+      this.airlines = req;
+    });
+    airports.subscribe((req: any) => {
+      this.flughafen = req;
+      this.setAirport();
+    });
+    offers.subscribe((req: any) => {
+      this.angebote = req;
+    });
+
   }
 
   // tslint:disable-next-line: use-lifecycle-interface
@@ -116,6 +71,13 @@ export class DetailsComponent implements OnInit {
     });
   }
 
+  setAirport() {
+    const airport = this.flughafen.find(hafen => hafen.id == this.flughafenAbId);
+    this.bezeichnung = airport.bezeichnung;
+    this.ort = airport.ort;
+    this.code = airport.code;
+  }
+
   getAirline(airlineId) {
     return this.airlines.find(airline => airline.id === airlineId).bezeichnung;
   }
@@ -123,7 +85,5 @@ export class DetailsComponent implements OnInit {
   getAirport(flughafenId) {
     return this.flughafen.find(hafen => hafen.id === flughafenId).bezeichnung;
   }
-
-
 
 }

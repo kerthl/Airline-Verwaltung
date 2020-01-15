@@ -27,8 +27,8 @@ export class RequestService {
     /**
      * used to get data from API
      */
-    public fetchOffer() {
-        return this.httpService.fetch('/AngebotListe');
+    public fetchOffer(id: string) {
+        return this.httpService.fetch('/AngebotListe/' + id);
     }
     /**
      * used to post data to API
