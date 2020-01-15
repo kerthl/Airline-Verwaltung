@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { RequestService } from 'src/app/services/request.service';
 import * as mapboxgl from 'mapbox-gl';
+import * as turf from '@turf/turf';
+import * as turf2 from 'turf-distance';
 
 @Component({
   selector: 'app-karte',
@@ -13,6 +15,14 @@ export class KarteComponent implements OnInit {
   lat = 47.61028;
   lng = 13.85583;
   protected requestService: RequestService;
+  options: any;
+  route: any;
+  origin: any;
+  destination: any;
+  point : any;
+
+
+
 
   constructor(requestService: RequestService) {
     this.requestService = requestService;
@@ -28,6 +38,7 @@ export class KarteComponent implements OnInit {
     });    // Add map controls
     this.map.addControl(new mapboxgl.NavigationControl());
 
+
     const test = this.requestService.fetchAirports();
 
     test.subscribe((req: any) => {
@@ -41,8 +52,47 @@ export class KarteComponent implements OnInit {
           .addTo(this.map);
       }
     });
+    // San Francisco
+    this.origin = [-122.414, 37.776];
+
+    // Washington DC
+    this.destination = [-77.032, 38.913];
+
+    // A simple line from origin to destination.
+    this.route = {
+      'type': 'FeatureCollection',
+      'features': [
+        {
+          'type': 'Feature',
+          'geometry': {
+            'type': 'LineString',
+            'coordinates': [this.origin, this.destination]
+          }
+        }
+      ]
+    };
+
+
+    // Used to increment the value of the point measurement against the route.
+    var helper = this;
+
+    this.map.on('load', function () {
+      // Add a source and layer displaying a point which will be animated in a circle.
+      console.log(this.map);
+      helper.map.addSource('route', {
+        'type': 'geojson',
+        'data': helper.route
+      });
+
+      helper.map.addLayer({
+        'id': 'route',
+        'source': 'route',
+        'type': 'line',
+        'paint': {
+          'line-width': 2,
+          'line-color': '#007cbf'
+        }
+      });
+    });
   }
-
 }
-
-
