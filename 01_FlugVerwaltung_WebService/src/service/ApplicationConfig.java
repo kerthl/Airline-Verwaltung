@@ -8,6 +8,7 @@ public class ApplicationConfig extends ResourceConfig {
 	
 	public ApplicationConfig() {
 		packages("bll","dal", "service"); 
+		register(CORS.class);
 	}
 	
 }

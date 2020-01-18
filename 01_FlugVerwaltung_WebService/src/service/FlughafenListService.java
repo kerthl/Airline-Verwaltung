@@ -3,6 +3,7 @@ package service;
 import java.util.LinkedList;
 
 import javax.ws.rs.GET;
+import javax.ws.rs.OPTIONS;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
@@ -28,6 +29,7 @@ public class FlughafenListService {
 	@Path("FlughafenListe")
 	@Produces({ MediaType.APPLICATION_JSON })
 	public Response getFlugzeuge() {
+		System.out.println("Hier");
 		Database db = Database.getInstance();
 		Response.ResponseBuilder response = Response.status(Response.Status.OK);
 		try {
@@ -41,6 +43,20 @@ public class FlughafenListService {
 		System.out.println("======================webservice GET ALLE FLUGHÄFEN called");
 		return response.build();
 	}
+	@OPTIONS
+    @Path("/{id}")
+    public Response preflightWithId() {
+    	Response.ResponseBuilder response = Response.status(Response.Status.OK);
+
+        return response.build();
+    }
+    
+    @OPTIONS
+    public Response preflight() {
+    	Response.ResponseBuilder response = Response.status(Response.Status.OK);
+
+        return response.build();
+    }
 
 }
 
