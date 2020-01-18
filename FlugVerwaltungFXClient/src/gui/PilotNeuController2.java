@@ -87,6 +87,7 @@ public class PilotNeuController2 implements Initializable {
 	}
 
 	public void setPilot(Pilot p) {
+		System.out.println(p);
 		current = p;
 		setProps();
 

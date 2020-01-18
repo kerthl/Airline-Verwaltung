@@ -7,7 +7,7 @@ import { KarteComponent } from './karte/karte.component';
 const routes: Routes = [
   { path: '', component: KarteComponent },
   { path: 'Karte', component: KarteComponent },
-  { path: 'Flughafen', component: DetailsComponent }
+  { path: 'Flughafen/:id', component: DetailsComponent }
 ];
 
 @NgModule({
