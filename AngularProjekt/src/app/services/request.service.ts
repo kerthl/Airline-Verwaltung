@@ -24,6 +24,14 @@ export class RequestService {
     public fetchAirports() {
         return this.httpService.fetch('/FlughafenListe');
     }
+
+
+
+
+    public fetchAngeboteForOneAirport(id) {
+        return this.httpService.fetch('/FlughafenDetail/'+ id + '/getAngebote');
+    }
+
     /**
      * used to get data from API
      */

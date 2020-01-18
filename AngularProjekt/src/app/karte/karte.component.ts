@@ -17,9 +17,8 @@ export class KarteComponent implements OnInit {
   protected requestService: RequestService;
   options: any;
   route: any;
-  origin: any;
-  destination: any;
-  point : any;
+  point: any;
+  lineCounter: any = 1;
 
 
 
@@ -44,55 +43,52 @@ export class KarteComponent implements OnInit {
     test.subscribe((req: any) => {
       for (const fh of req) {
         const popup = new mapboxgl.Popup({ offset: 25 }).setText(
-          fh.code + ' ' + fh.bezeichnung
+          fh.code + ' ' + fh.bezeichnung,
         );
         const marker = new mapboxgl.Marker()
           .setLngLat([fh.laengengrad, fh.breitengrad])
           .setPopup(popup)
           .addTo(this.map);
+
+        const angebote = this.requestService.fetchAngeboteForOneAirport(fh.id);
+        angebote.subscribe((reqAngebote: any) => {
+          for (const fa of reqAngebote) {
+            const origin = [fh.laengengrad, fh.breitengrad];
+            const destination = [fa.flughafenAn.laengengrad, fa.flughafenAn.breitengrad];
+            // A simple line from origin to destination.
+            const route = {
+              'type': 'FeatureCollection',
+              'features': [
+                {
+                  'type': 'Feature',
+                  'geometry': {
+                    'type': 'LineString',
+                    'coordinates': [origin, destination]
+                  }
+                }
+              ]
+            };
+            const helper = this;
+            helper.lineCounter++;
+            // Add a source and layer displaying a point which will be animated in a circle.
+            helper.map.addSource('route' + helper.lineCounter, {
+              'type': 'geojson',
+              'data': route
+            });
+            helper.map.addLayer({
+              'id': 'routeLayer' + helper.lineCounter,
+              'source': 'route' + helper.lineCounter,
+              'type': 'line',
+              'paint': {
+                'line-width': 2,
+                'line-color': '#007cbf'
+              }
+            });
+          }
+        });
       }
     });
-    // San Francisco
-    this.origin = [-122.414, 37.776];
-
-    // Washington DC
-    this.destination = [-77.032, 38.913];
-
-    // A simple line from origin to destination.
-    this.route = {
-      'type': 'FeatureCollection',
-      'features': [
-        {
-          'type': 'Feature',
-          'geometry': {
-            'type': 'LineString',
-            'coordinates': [this.origin, this.destination]
-          }
-        }
-      ]
-    };
 
 
-    // Used to increment the value of the point measurement against the route.
-    var helper = this;
-
-    this.map.on('load', function () {
-      // Add a source and layer displaying a point which will be animated in a circle.
-      console.log(this.map);
-      helper.map.addSource('route', {
-        'type': 'geojson',
-        'data': helper.route
-      });
-
-      helper.map.addLayer({
-        'id': 'route',
-        'source': 'route',
-        'type': 'line',
-        'paint': {
-          'line-width': 2,
-          'line-color': '#007cbf'
-        }
-      });
-    });
   }
 }
