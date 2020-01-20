@@ -12,7 +12,7 @@ public class Angebot {
 			super();
 		}
 
-		public Angebot(String id, Airline airline, Flughafen flughafenAb, Flughafen flughafenAn, String ankunftszeit, String abflugszeit) {
+		public Angebot(String id, Airline airline, Flughafen flughafenAb, Flughafen flughafenAn, String abflugszeit, String ankunftszeit) {
 			super();
 			this.flugNummer = id;
 			this.airline = airline;
@@ -22,7 +22,7 @@ public class Angebot {
 			this.abflugszeit = abflugszeit;
 		}
 
-		public Angebot(Airline airline, Flughafen flughafenAb, Flughafen flughafenAn, String ankunftszeit, String abflugszeit) {
+		public Angebot(Airline airline, Flughafen flughafenAb, Flughafen flughafenAn, String abflugszeit, String ankunftszeit) {
 			super();
 			this.airline = airline;
 			this.flughafenAb = flughafenAb;
