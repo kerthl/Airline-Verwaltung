@@ -49,7 +49,7 @@ public class AngeboteListService {
 		Database db = Database.getInstance();
 		Response.ResponseBuilder response = Response.status(Response.Status.OK);
 		try {
-			LinkedList<Angebot> alleAngebote = db.getAngeboteForAirport(Integer.valueOf(flughafenAbId));
+			LinkedList<Angebot> alleAngebote = db.getAngeboteByAirport(Integer.valueOf(flughafenAbId));
 			response.entity(new Gson().toJson(alleAngebote));
 		} catch (Exception e) {
 			response.status(Response.Status.BAD_REQUEST);
