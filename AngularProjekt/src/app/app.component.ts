@@ -29,7 +29,7 @@ export class AppComponent {
     this._opened = !this._opened;
   }
 
-  private openDetails(): void {
+  private openFlughafen(): void {
     this.router.navigateByUrl('/Flughafen');
   }
 

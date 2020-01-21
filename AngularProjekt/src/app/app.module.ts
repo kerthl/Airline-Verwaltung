@@ -10,13 +10,15 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { SidebarModule } from 'ng-sidebar';
 import { DetailsComponent } from './details/details.component';
 import { KarteComponent } from './karte/karte.component';
+import { FlughafenComponent } from './flughafen/flughafen.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     DetailsComponent,
-    KarteComponent
+    KarteComponent,
+    FlughafenComponent
   ],
   imports: [
     BrowserModule,
