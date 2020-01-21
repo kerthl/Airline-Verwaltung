@@ -11,10 +11,10 @@
         <div class="swiper-wrapper">
             <div class="swiper-slide" *ngFor="let angebot of angebote">
                 <div class="airline">
-                    <h3>{{getAirline(angebot.idAirline)}}</h3>
+                    <h3>{{getAirline(angebot.airline.id)}}</h3>
                 </div>
                 <div class="content">
-                    <h1>{{getAirport(angebot.idFlughafenAn)}}</h1>
+                    <h1>{{getAirport(angebot.flughafenAn.id)}}</h1>
                     <p>Abflugszeit: {{angebot.abflugszeit}}</p>
                     <p>Ankunftszeit: {{angebot.ankunftszeit}}</p>
                 </div>
