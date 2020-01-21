@@ -13,13 +13,33 @@ export class RequestService {
     ) {
     }
     /**
-     * @param id ID of request-object
+     * used to get data from API
+     */
+    public fetchAirlines() {
+        return this.httpService.fetch('/AirlineListe');
+    }
+    /**
+     * used to get data from API
      */
     public fetchAirports() {
         return this.httpService.fetch('/FlughafenListe');
     }
+
+
+
+
+    public fetchAngeboteForOneAirport(id) {
+        return this.httpService.fetch('/FlughafenDetail/'+ id + '/getAngebote');
+    }
+
     /**
-     * uset to post data to API
+     * used to get data from API
+     */
+    public fetchOffer(id: string) {
+        return this.httpService.fetch('/AngebotListe/' + id);
+    }
+    /**
+     * used to post data to API
      * @param data Request-object
      */
     public post(data: any) {
