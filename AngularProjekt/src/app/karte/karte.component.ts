@@ -19,6 +19,7 @@ export class KarteComponent implements OnInit {
   route: any;
   point: any;
   lineCounter: any = 1;
+  airports :any = {};
 
 
 
@@ -27,34 +28,13 @@ export class KarteComponent implements OnInit {
     this.requestService = requestService;
   }
 
-  ngOnInit() {
-    mapboxgl.accessToken = 'pk.eyJ1IjoibWF1Y2hzIiwiYSI6ImNrM3kzaGMxOTBpM3UzZHFjdXN1ZjRsM3UifQ.ZpBwuft2KhU2B_eBKiIkew';
-    this.map = new mapboxgl.Map({
-      container: 'map',
-      style: this.style,
-      zoom: 7,
-      center: [this.lng, this.lat]
-    });    // Add map controls
-    this.map.addControl(new mapboxgl.NavigationControl());
-
-
-    const test = this.requestService.fetchAirports();
-
-    test.subscribe((req: any) => {
-      for (const fh of req) {
-        const popup = new mapboxgl.Popup({ offset: 25 }).setText(
-          fh.code + ' ' + fh.bezeichnung,
-        );
-        const marker = new mapboxgl.Marker()
-          .setLngLat([fh.laengengrad, fh.breitengrad])
-          .setPopup(popup)
-          .addTo(this.map);
-
-        const angebote = this.requestService.fetchAngeboteForOneAirport(fh.id);
+  fin() {
+    for(const f in this.airports){
+        const angebote = this.requestService.fetchAngeboteForOneAirport(this.airports[f].id);
         angebote.subscribe((reqAngebote: any) => {
-          for (const fa of reqAngebote) {
-            const origin = [fh.laengengrad, fh.breitengrad];
-            const destination = [fa.flughafenAn.laengengrad, fa.flughafenAn.breitengrad];
+          for (const angebot of reqAngebote) {
+            const origin = [angebot.flughafenAb.laengengrad, angebot.flughafenAb.breitengrad];
+            const destination = [angebot.flughafenAn.laengengrad, angebot.flughafenAn.breitengrad];
             // A simple line from origin to destination.
             const route = {
               'type': 'FeatureCollection',
@@ -85,10 +65,38 @@ export class KarteComponent implements OnInit {
               }
             });
           }
+
         });
       }
+  }
+
+  ngOnInit() {
+    mapboxgl.accessToken = 'pk.eyJ1IjoibWF1Y2hzIiwiYSI6ImNrM3kzaGMxOTBpM3UzZHFjdXN1ZjRsM3UifQ.ZpBwuft2KhU2B_eBKiIkew';
+    this.map = new mapboxgl.Map({
+      container: 'map',
+      style: this.style,
+      zoom: 7,
+      center: [this.lng, this.lat]
+    });    // Add map controls
+    this.map.addControl(new mapboxgl.NavigationControl());
+
+
+    const test = this.requestService.fetchAirports();
+    test.subscribe((req: any) => {
+      for (const fh of req) {
+        const popup = new mapboxgl.Popup({ offset: 100 }).setText(
+          fh.code + ' ' + fh.bezeichnung,
+        );
+        const marker = new mapboxgl.Marker()
+          .setLngLat([fh.laengengrad, fh.breitengrad])
+          .setPopup(popup)
+          .addTo(this.map); 
+        this.airports[fh.id]=fh;      
+      }
+      this.fin();      
     });
-
-
+    
   }
 }
+
+
