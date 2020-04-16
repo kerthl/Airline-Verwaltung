@@ -1,87 +1,114 @@
-body {
-  background: #262626;
-  font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
-  font-size: 14px;
-  color:#000;
-  margin: 0;
-  padding: 0;
+.cards {
+  margin: 0 auto;
+  max-width: 1000px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(225px, 1fr));
+  grid-auto-rows: auto;
+  gap: 20px;
+  font-family: sans-serif;
+  padding-top: 30px;
 }
 
-.swiper-container {
-  width: 100%;
-  padding-top: 50px;
-  padding-bottom: 50px;
-}
-.swiper-slide {
-  background-position: center;
-  background-size: cover;
-  width: 500px;
-  height: 400px;
-  background: #fff;
-}
-
-.swiper-slide .content {
-  margin: 20px;
-  padding: 20px;
+.cards * {
   box-sizing: border-box;
 }
 
-.swiper-slide .content p {
-  font-size: 20px;
-}
-
-.swiper-slide .airline {
-  position: relative;
+.card__image {
   width: 100%;
   height: 150px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background: #000;
+  object-fit: cover;
+  display: block;
+  border-top: 2px solid #333333;
+  border-right: 2px solid #333333;
+  border-left: 2px solid #333333;
 }
 
-
-.swiper-slide .airline h3 {
-  color: #fff;
-  font-size: 3em;
-}
-
-.swiper-slide .content a {
-  display: inline-block;
-  margin: 10px 0 0;
-  padding: 10px 20px;
-  text-decoration: none;
-  border: 2px solid #262626;
-  color: #262626;
-  font-weight: 600;
-}
-
-.swiper-slide:nth-child(5n+1) .airline {
-    background: #2196f3;
-}
-.swiper-slide:nth-child(5n+2) .airline {
-  background: #e91e63;
-}
-.swiper-slide:nth-child(5n+3) .airline {
-  background: #c3d41a;
-}
-.swiper-slide:nth-child(5n+4) .airline {
-  background: #ff9800;
-}
-.swiper-slide:nth-child(5n+5) .airline {
-  background: #c33ada;
-}
-
-.headline {
-  font-family: "Avant Garde", Avantgarde, "Century Gothic", CenturyGothic, "AppleGothic", sans-serif;
-  font-size: 25px;
-  padding: 10px 5px;
+.card__header {
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
+  display: block;
+  border-top: 2px solid #333333;
+  border-right: 2px solid #333333;
+  border-left: 2px solid #333333;
   text-align: center;
-  text-transform: uppercase;
-  text-rendering: optimizeLegibility;
-  
-    color: #131313;
-    background-color: #e7e5e4;
-    letter-spacing: .15em;
-  
+  font-size: 50px;
+  background-color: #6709ff;
 }
+
+.card__header:nth-child(1) {
+  background-color: #09ceff;
+}
+
+.card__header:nth-child(2) {
+  background-color: #3e09ff;
+}
+
+.card__header .card__header__text {
+  margin-top: 17%;
+
+}
+
+.card__content {
+  line-height: 1.5;
+  font-size: 0.9em;
+  padding: 15px;
+  background: #fafafa;
+  border-right: 2px solid #333333;
+  border-left: 2px solid #333333;
+}
+
+.card__content > p:first-of-type {
+  margin-top: 0;
+}
+
+.card__content > p:last-of-type {
+  margin-bottom: 0;
+}
+
+.card__info {
+  padding: 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: #555555;
+  background: #eeeeee;
+  font-size: 0.8em;
+  border-bottom: 2px solid #333333;
+  border-right: 2px solid #333333;
+  border-left: 2px solid #333333;
+}
+
+.card__info i {
+  font-size: 1.5em;
+  margin-right: 8px;
+}
+
+.card__info a {
+  border: 2px solid #333333;
+  padding: 5px;
+  background-color: #ffffff;
+  color: #000000;
+}
+
+.card__info a:hover {
+  border: 2px solid #333333;
+  padding: 5px;
+  background-color: #000000;
+  color: #ffffff;
+  text-decoration: none;
+}
+
+.card__link {
+  color: #64968c;
+  text-decoration: none;
+}
+
+.card__link:hover {
+  text-decoration: underline;
+}
+
+.body  {
+  background-image: url("airport.jpg");
+}
+

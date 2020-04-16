@@ -25,18 +25,15 @@ export class RequestService {
         return this.httpService.fetch('/FlughafenListe');
     }
 
-
-
-
     public fetchAngeboteForOneAirport(id) {
-        return this.httpService.fetch('/FlughafenDetail/'+ id + '/getAngebote');
+        return this.httpService.fetch('/FlughafenDetail/' + id + '/getAngebote');
     }
 
     /**
      * used to get data from API
      */
-    public fetchOffer(id: string) {
-        return this.httpService.fetch('/AngebotListe/' + id);
+    public fetchFlights() {
+        return this.httpService.fetch('/FlugListe');
     }
     /**
      * used to post data to API

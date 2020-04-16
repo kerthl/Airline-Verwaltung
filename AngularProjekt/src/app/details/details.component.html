@@ -9,14 +9,17 @@
     <!-- Swiper -->
     <div class="swiper-container">
         <div class="swiper-wrapper">
-            <div class="swiper-slide" *ngFor="let angebot of angebote">
-                <div class="airline">
-                    <h3>{{getAirline(angebot.airline.id)}}</h3>
+            <div class="swiper-slide" *ngFor="let flug of fluege">
+                <div class="airline" >
+                    <h3>{{flug.angebot.airline.bezeichnung}}    {{flug.angebot.flugNummer}}</h3>
                 </div>
                 <div class="content">
-                    <h1>{{getAirport(angebot.flughafenAn.id)}}</h1>
-                    <p>Abflugszeit: {{angebot.abflugszeit}}</p>
-                    <p>Ankunftszeit: {{angebot.ankunftszeit}}</p>
+                    <h1>{{flug.angebot.flughafenAn.bezeichnung}}</h1>
+                    <p>Abflugszeit: {{flug.angebot.abflugszeit}}</p>
+                    <p>Ankunftszeit: {{flug.angebot.ankunftszeit}}</p>
+                    <p>Datum: {{flug.datum}}</p>
+                    <p>Flugzeug: {{flug.flugzeug.bezeichnung}}</p>
+                    <p>Maximale Sitzplätze: {{flug.flugzeug.maxSitze}}</p>
                 </div>
             </div>
         </div>

@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import Swiper from 'swiper';
-import { IfStmt } from '@angular/compiler';
 import { ActivatedRoute, Params } from '@angular/router';
 import { RequestService } from '../services/request.service';
 
@@ -19,7 +18,7 @@ export class DetailsComponent implements OnInit {
 
   private flughafen: any = [];
 
-  private angebote: any = [];
+  private fluege: any = [];
 
   private airlines: any = [];
 
@@ -32,12 +31,13 @@ export class DetailsComponent implements OnInit {
   }
 
   ngOnInit() {
+    window.resizeTo(window.innerHeight, window.innerWidth);
     this.route.params.forEach((params: Params) => {
       this.flughafenAbId = params['id'];
-  });
+    });
     const airlines = this.requestService.fetchAirlines();
     const airports = this.requestService.fetchAirports();
-    const offers = this.requestService.fetchOffer(this.flughafenAbId);
+    const flights = this.requestService.fetchFlights();
 
     airlines.subscribe((req: any) => {
       this.airlines = req;
@@ -46,8 +46,12 @@ export class DetailsComponent implements OnInit {
       this.flughafen = req;
       this.setAirport();
     });
-    offers.subscribe((req: any) => {
-      this.angebote = req;
+    flights.subscribe((req: any) => {
+      req.forEach(el => {
+          if (el.angebot.flughafenAb.id == this.flughafenAbId) {
+            this.fluege.push(el);
+          }
+      });
     });
   }
   // tslint:disable-next-line: use-lifecycle-interface
@@ -75,15 +79,4 @@ export class DetailsComponent implements OnInit {
     this.ort = airport.ort;
     this.code = airport.code;
   }
-  
-  getAirline(airlineId) {
-    return this.airlines.find(airline => airline.id === airlineId).bezeichnung;
-  }
-
-  getAirport(flughafenId) {
-    return this.flughafen.find(hafen => hafen.id === flughafenId).bezeichnung;
-  }
-
-
-
 }
