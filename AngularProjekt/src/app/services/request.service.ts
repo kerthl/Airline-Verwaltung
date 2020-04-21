@@ -33,7 +33,7 @@ export class RequestService {
      * used to get data from API
      */
     public fetchFlights() {
-        return this.httpService.fetch('/FlugListe');
+        return this.httpService.fetch('/AngebotListe');
     }
     /**
      * used to post data to API

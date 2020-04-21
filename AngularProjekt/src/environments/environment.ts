@@ -3,7 +3,7 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  apiUrl: 'http://172.16.126.137:8080/01_FlugVerwaltung_WebService/Verwaltung',
+  apiUrl: 'http://192.168.64.134:8080/01_FlugVerwaltung_WebService/Verwaltung',
   production: false
 };
 

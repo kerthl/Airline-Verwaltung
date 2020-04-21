@@ -11,15 +11,12 @@
         <div class="swiper-wrapper">
             <div class="swiper-slide" *ngFor="let flug of fluege">
                 <div class="airline" >
-                    <h3>{{flug.angebot.airline.bezeichnung}}    {{flug.angebot.flugNummer}}</h3>
+                    <h3>{{flug.airline.bezeichnung}} Flug {{flug.flugNummer}}   </h3>
                 </div>
                 <div class="content">
-                    <h1>{{flug.angebot.flughafenAn.bezeichnung}}</h1>
-                    <p>Abflugszeit: {{flug.angebot.abflugszeit}}</p>
-                    <p>Ankunftszeit: {{flug.angebot.ankunftszeit}}</p>
-                    <p>Datum: {{flug.datum}}</p>
-                    <p>Flugzeug: {{flug.flugzeug.bezeichnung}}</p>
-                    <p>Maximale Sitzplätze: {{flug.flugzeug.maxSitze}}</p>
+                    <h1>{{flug.flughafenAn.bezeichnung}}</h1>
+                    <p>Abflugszeit: {{flug.abflugszeit}}</p>
+                    <p>Ankunftszeit: {{flug.ankunftszeit}}</p>
                 </div>
             </div>
         </div>

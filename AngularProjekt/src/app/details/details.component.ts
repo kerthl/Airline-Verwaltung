@@ -48,7 +48,7 @@ export class DetailsComponent implements OnInit {
     });
     flights.subscribe((req: any) => {
       req.forEach(el => {
-          if (el.angebot.flughafenAb.id == this.flughafenAbId) {
+          if (el.flughafenAb.id == this.flughafenAbId) {
             this.fluege.push(el);
           }
       });
