@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane prefHeight="332.0" prefWidth="335.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.FlugController">
+   <center>
+      <GridPane prefWidth="200.0" BorderPane.alignment="CENTER">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <Label alignment="CENTER" prefHeight="15.0" prefWidth="171.0" text="Angebot" textAlignment="RIGHT" />
+            <Label alignment="CENTER" prefHeight="15.0" prefWidth="171.0" text="Datum" textAlignment="RIGHT" GridPane.rowIndex="1" />
+            <Label alignment="CENTER" prefHeight="15.0" prefWidth="227.0" text="Captain" textAlignment="RIGHT" GridPane.rowIndex="2" />
+            <Label alignment="CENTER" prefHeight="15.0" prefWidth="191.0" text="First Officer" textAlignment="RIGHT" GridPane.rowIndex="3" />
+            <Label alignment="CENTER" prefHeight="15.0" prefWidth="202.0" text="Flugzeug" textAlignment="RIGHT" GridPane.rowIndex="4" />
+            <Label fx:id="lblAngebot" alignment="CENTER" prefHeight="15.0" prefWidth="303.0" GridPane.columnIndex="1">
+               <font>
+                  <Font name="System Bold" size="13.0" />
+               </font></Label>
+            <Label fx:id="lblDatum" alignment="CENTER" prefHeight="15.0" prefWidth="409.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+               <font>
+                  <Font name="System Bold" size="13.0" />
+               </font></Label>
+            <Label fx:id="lblCaptain" alignment="CENTER" prefHeight="15.0" prefWidth="305.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+               <font>
+                  <Font name="System Bold" size="13.0" />
+               </font></Label>
+            <Label fx:id="lblFOfficer" alignment="CENTER" prefHeight="15.0" prefWidth="351.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
+               <font>
+                  <Font name="System Bold" size="13.0" />
+               </font></Label>
+            <Label fx:id="lblFlugzeug" alignment="CENTER" prefHeight="15.0" prefWidth="309.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
+               <font>
+                  <Font name="System Bold" size="13.0" />
+               </font></Label>
+            <Label alignment="CENTER" prefHeight="15.0" prefWidth="260.0" text="Sitzplätze" GridPane.rowIndex="5" />
+            <Label alignment="CENTER" prefHeight="15.0" prefWidth="330.0" text="Bereits gebucht" GridPane.rowIndex="6" />
+            <Label fx:id="lblSitzplaetze" alignment="CENTER" prefHeight="15.0" prefWidth="333.0" GridPane.columnIndex="1" GridPane.rowIndex="5">
+               <font>
+                  <Font name="System Bold" size="13.0" />
+               </font>
+            </Label>
+            <Label fx:id="lblGebucht" alignment="CENTER" prefHeight="15.0" prefWidth="175.0" textFill="#2fbf55" GridPane.columnIndex="1" GridPane.rowIndex="6">
+               <font>
+                  <Font name="System Bold" size="13.0" />
+               </font>
+            </Label>
+         </children>
+      </GridPane>
+   </center>
+   <top>
+      <AnchorPane prefHeight="67.0" prefWidth="323.0" BorderPane.alignment="CENTER">
+         <children>
+            <Label alignment="CENTER" layoutX="45.0" layoutY="24.0" prefHeight="15.0" prefWidth="245.0" style="-fx-background-color: lightblue;" text="Details zum Flug">
+               <font>
+                  <Font name="System Bold Italic" size="24.0" />
+               </font></Label>
+         </children></AnchorPane>
+   </top>
+   <bottom>
+      <AnchorPane prefHeight="55.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+         <children>
+            <Button fx:id="btnZurueck" layoutX="49.0" layoutY="15.0" mnemonicParsing="false" onAction="#btnZurueckClicked" prefHeight="25.0" prefWidth="63.0" style="-fx-background-color: lightblue;" text="Zurück">
+               <font>
+                  <Font name="System Bold" size="13.0" />
+               </font></Button>
+            <Button fx:id="btnBuchen" layoutX="183.0" layoutY="15.0" mnemonicParsing="false" onAction="#btnBuchenClicked" prefHeight="25.0" prefWidth="138.0" style="-fx-background-color: lightblue;" text="Buchen">
+               <font>
+                  <Font name="System Bold" size="13.0" />
+               </font></Button>
+         </children></AnchorPane>
+   </bottom>
+</BorderPane>

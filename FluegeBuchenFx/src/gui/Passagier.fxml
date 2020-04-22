@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane prefHeight="340.0" prefWidth="314.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.PassagierController">
+   <top>
+      <AnchorPane prefHeight="58.0" prefWidth="314.0" BorderPane.alignment="CENTER">
+         <children>
+            <Label alignment="CENTER" layoutX="17.0" layoutY="15.0" prefHeight="15.0" prefWidth="281.0" style="-fx-background-color: lightblue;" text="Persönliche Informationen ">
+               <font>
+                  <Font name="System Bold Italic" size="22.0" />
+               </font></Label>
+         </children>
+      </AnchorPane>
+   </top>
+   <bottom>
+      <AnchorPane prefHeight="54.0" prefWidth="314.0" BorderPane.alignment="CENTER">
+         <children>
+            <Button fx:id="btnZurueck" layoutX="47.0" layoutY="14.0" mnemonicParsing="false" onAction="#btnZurueckClicked" prefHeight="25.0" prefWidth="78.0" style="-fx-background-color: lightblue;" text="Zurück">
+               <font>
+                  <Font name="System Bold" size="13.0" />
+               </font></Button>
+            <Button fx:id="btnBuchen" layoutX="157.0" layoutY="14.0" mnemonicParsing="false" onAction="#btnBuchenClicked" prefHeight="25.0" prefWidth="161.0" style="-fx-background-color: lightblue;" text="Kostenpflichtig Buchen">
+               <font>
+                  <Font name="System Bold" size="13.0" />
+               </font></Button>
+         </children>
+      </AnchorPane>
+   </bottom>
+   <center>
+      <GridPane BorderPane.alignment="CENTER">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <Label alignment="CENTER" prefHeight="15.0" prefWidth="236.0" text="Vorname" />
+            <Label alignment="CENTER" prefHeight="15.0" prefWidth="292.0" text="Nachname" GridPane.rowIndex="1" />
+            <Label alignment="CENTER" prefHeight="15.0" prefWidth="156.0" text="Geb. Datum" GridPane.rowIndex="2" />
+            <Label alignment="CENTER" prefHeight="15.0" prefWidth="275.0" text="Straße" GridPane.rowIndex="3" />
+            <Label alignment="CENTER" prefHeight="15.0" prefWidth="274.0" text="Ort" GridPane.rowIndex="4" />
+            <Label alignment="CENTER" prefHeight="15.0" prefWidth="177.0" text="PLZ" GridPane.rowIndex="5" />
+            <TextField fx:id="txtVorname" alignment="CENTER" GridPane.columnIndex="1" />
+            <TextField fx:id="txtNachname" alignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <TextField fx:id="txtGebDatum" alignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <TextField fx:id="txtStrasse" alignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <TextField fx:id="txtOrt" alignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+            <TextField fx:id="txtPlz" alignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+         </children>
+      </GridPane>
+   </center>
+</BorderPane>

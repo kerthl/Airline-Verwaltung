@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="395.0" prefWidth="778.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.BoardingKarteController">
+   <children>
+      <Label alignment="CENTER" layoutX="14.0" layoutY="25.0" prefHeight="31.0" prefWidth="755.0" style="-fx-background-color: lightblue;" text="Erfolgreich gebucht - Ihre Boarding-Karte">
+         <font>
+            <Font name="System Bold Italic" size="24.0" />
+         </font></Label>
+      <ImageView fx:id="imgKarte" fitHeight="268.0" fitWidth="764.0" layoutX="14.0" layoutY="72.0" pickOnBounds="true" preserveRatio="true" />
+      <Button fx:id="btnSchliessen" layoutX="14.0" layoutY="356.0" mnemonicParsing="false" onAction="#btnSchliessenClicked" prefHeight="25.0" prefWidth="113.0" style="-fx-background-color: lightblue;" text="Schließen">
+         <font>
+            <Font name="System Bold" size="13.0" />
+         </font></Button>
+      <Label fx:id="lblName" layoutX="288.0" layoutY="104.0" prefHeight="31.0" prefWidth="135.0" text="Name           Nachname">
+         <font>
+            <Font name="System Bold" size="13.0" />
+         </font>
+      </Label>
+      <Label fx:id="lblOrt" layoutX="228.0" layoutY="143.0" prefHeight="15.0" prefWidth="205.0" text="Ort Von      -                       Ort Nach">
+         <font>
+            <Font name="System Bold" size="13.0" />
+         </font>
+      </Label>
+      <Label fx:id="lblZeit" layoutX="228.0" layoutY="172.0" prefHeight="15.0" prefWidth="205.0" text="Zeit Von      -                     Zeit Bis">
+         <font>
+            <Font name="System Bold" size="13.0" />
+         </font>
+      </Label>
+      <Label fx:id="lblSP" layoutX="81.0" layoutY="236.0" prefHeight="37.0" prefWidth="55.0" text="SP">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+      </Label>
+      <Label fx:id="lblFNr" layoutX="192.0" layoutY="236.0" prefHeight="37.0" prefWidth="84.0" text="FlugNR">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+      </Label>
+      <Label fx:id="lblPreis" layoutX="349.0" layoutY="239.0" prefHeight="31.0" prefWidth="67.0" text="PReis">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+      </Label>
+      <ImageView fx:id="imgVirus" fitHeight="150.0" fitWidth="200.0" layoutX="539.0" layoutY="89.0" pickOnBounds="true" preserveRatio="true" />
+   </children>
+</AnchorPane>
